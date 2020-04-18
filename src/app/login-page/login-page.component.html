@@ -1,0 +1,41 @@
+
+<section class="sign-in">
+    <div class="row sign-content">
+        <div class="col-sm-12 col-md-10 offset-md-1">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="signin-image">
+                        <img src="../../assets/signin-image.webp" class="img-responsive" alt="sing up image">
+                    </div >  
+                    <a [routerLink]="'/signup'" routerLinkActive="active" class="text-account" >Create an account</a>
+                </div>
+                <div class="col-sm-6">
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <form #signinForm="ngForm" (ngSubmit)="onSubmit(signinForm)" >
+                            <div class="form-group">
+                                <label for="your_email" class="cmt-5"><i class="fa fa-user"></i></label>
+                                <input type="email" class="field-input" name="email" email ngModel required placeholder="Your Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="your_password" class="cmt-5"><i class="fa fa-lock"></i></label>
+                                <input type="password" class="field-input" name="password" ngModel required placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="checkbox" ngModel >
+                                <label for="remember-me"  class="checkbox">Remember me</label>
+                            </div>
+                            <div class="form-group form-button">
+                                <button type="submit" [disabled]="!signinForm.valid" class="form-submit">Log in</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+  
+
