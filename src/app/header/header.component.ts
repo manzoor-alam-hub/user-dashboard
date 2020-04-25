@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+    public isAuthenticated = false;
+  constructor(private router:Router, private appService: AppService) { 
+    // const isUserLogin = localStorage.getItem('isLogin');
+    // if(!isUserLogin){
+    //   this.router.navigate(['/login']);
+    // }
+    this.appService.isUserLogin.subscribe(
+      (data)=>{
+            // localStorage.getItem('isLogin');
+            this.isAuthenticated = data;
+            console.log('appService.isUserLogin', data);
+      }
+    );
+   console.log('header ',this.isAuthenticated);
+    
+  }
 
+  logout() {
+    localStorage.removeItem('isLogin');
+    this.appService.isLoginSuccess(false);
+    this.router.navigate['/login'];
+    
+  }
   ngOnInit() {
+
   }
 
 }

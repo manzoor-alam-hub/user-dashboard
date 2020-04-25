@@ -1,0 +1,26 @@
+.head{
+    box-shadow: 0 0 3px 2px white;
+    padding: 10px;
+	text-align: center;
+	margin: 5px;
+}
+.table-head{
+	box-shadow: 0 0 2px 0px white;
+    text-align: center;
+}
+.color{
+    /* background-color: #203e5f !important; */
+    background-color: #24578f !important;
+    color: white;
+}
+.btn{
+    padding: 15px 30px;
+    /* color: black; */
+    box-shadow: 0 0 3px 2px #1b4965;
+    color: #fff;
+    background-color: #1e6390 !important;
+    border-radius: inherit;
+}
+.btn:hover{
+    background-color: #064168 !important;
+}

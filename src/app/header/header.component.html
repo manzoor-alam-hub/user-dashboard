@@ -1,7 +1,20 @@
 <div class="navbar">
-    <a routerLink="/login"><i class="fa fa-user"> Login </i></a>
-    <a href="#"><i class="fa fa-home"> Home </i></a>
-    <a href="#"><i class="fa fa-envelope"> Contact </i></a>
-    <a href="#"><i class="fa fa-bars icon"> </i></a>
-
+    <a routerLink="/login" *ngIf="!isAuthenticated">
+        <i class="fa fa-sign-in"> Login </i>
+    </a>
+    <a routerLink="/home" *ngIf="isAuthenticated">
+        <i class="fa fa-home"> Home </i>
+    </a>
+    <a routerLink="/user" *ngIf="isAuthenticated">
+        <i class="fa fa-user"> User </i>
+    </a>
+    <a style="cursor: pointer;" *ngIf="isAuthenticated">
+        <i class="fa fa-envelope"> Contact </i>
+    </a>
+    <a href="#" class="icon ">
+        <i class="fa fa-bars"> </i>
+    </a>
+    <a routerLink="/login"  style="cursor: pointer;" (click)="logout()" *ngIf="isAuthenticated">
+        <i class="fa fa-sign-out "> Logout </i> 
+     </a>
 </div>

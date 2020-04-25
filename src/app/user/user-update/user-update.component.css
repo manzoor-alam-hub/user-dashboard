@@ -1,0 +1,16 @@
+.update{
+    background-color: #638a9e;
+    padding: 26px 30px;
+    box-shadow: 0px 2px 2px 2px #00000029;
+    border-radius: 5px;
+}
+.ucard{
+    box-shadow: 0 0 3px 3px #00000040;
+}
+.head{
+    box-shadow: 0 0 3px 3px #105015e0;
+    padding: 7px;
+    text-align: center;
+    border-radius: 15px;
+    margin: 5px;
+}

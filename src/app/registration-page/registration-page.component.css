@@ -31,7 +31,9 @@
     color: #fff;
     border: none;
     border-radius: 5px;
-    padding: 15px 39px;
+    padding: 15px 30px;
+    margin: 0;
+    box-shadow: 0px 2px 4px 2px #0000004f;
 }
 .checkbox{
     margin-left: 11px;
@@ -66,4 +68,13 @@ h2{
 }
 .member{
     margin-left: 25%;
+}
+.form-cancle{
+    position: relative;
+    background: #b12b21;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    box-shadow: 0px 2px 4px 2px #0000004f;  
 }
