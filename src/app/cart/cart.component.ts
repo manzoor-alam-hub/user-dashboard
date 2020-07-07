@@ -125,7 +125,6 @@ export class CartComponent implements OnInit {
     //   this.shoppingCart.grandTotal += product.offerPrice;
     // });
     // localStorage.setItem('cartItem', JSON.stringify(this.shoppingCart));
-
   }
   checkout() {
     this.updateToStorage();
