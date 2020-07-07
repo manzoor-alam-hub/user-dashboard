@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
       (data)=>{
             // localStorage.getItem('isLogin');
             this.isAuthenticated = data;
-            console.log('appService.isUserLogin', data);
+            // console.log('appService.isUserLogin', data);
       }
     );
    console.log('header ',this.isAuthenticated);
@@ -29,11 +29,15 @@ export class HeaderComponent implements OnInit {
   logout() {
     localStorage.removeItem('isLogin');
     this.appService.isLoginSuccess(false);
+    localStorage.removeItem('logedInUser');
     this.router.navigate['/login'];
-    
+  }
+
+  ontoggle(){
+    this.appService.isOpenToggleBar();
   }
   ngOnInit() {
-
+   
   }
 
 }

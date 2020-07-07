@@ -6,6 +6,9 @@ export class RegistrationModel{
     public confirmPassword:string;
     public acceptTerms:boolean;
     public role:string;
-    public enable:boolean
-  constructor() {}
+    public enable:boolean;
+    public id:string;
+  constructor() {
+    
+  }
 }

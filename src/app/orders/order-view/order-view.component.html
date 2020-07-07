@@ -1,0 +1,270 @@
+<section class="order-view">
+    <div class="container">
+        <div class="card cardview">
+            <div class="card-header bg-info text-white">
+                <h4 class="text-center">Order Information</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="title">Details</h5>
+                        <hr>
+                        <form class="formdata">
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Purchased On : </div>
+                                <div class="col-sm-8 ">
+                                   {{obj.status[0].timeStemp | date:'short'}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Client Name : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.firstname}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Items : </div>
+                                <div class="col-sm-8 ">
+                                    1
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Amount :  </div>
+                                <div class="col-sm-8 ">
+                                    <i class="fa fa-rupee">{{obj.grandTotal}}</i>
+                                </div>
+                            </div>
+                            <div class="form-group row" *ngFor="let date of obj.status ">
+                                <div class="col-sm-4"> Status : </div>
+                                <div class="col-sm-8 ">
+                                    <span class="badge" [ngClass]="{
+                                        'badge-warning':date.status === 'Pending',
+                                        'badge-info':date.status === 'Accepted',
+                                        'badge-primary':date.status === 'On the Way',
+                                        'badge-danger':date.status === 'Cancelled',
+                                        'badge-success':date.status === 'Delivered'
+                                      }">
+                                      {{date.status}} 
+                                    </span>
+                                    {{date.timeStemp| date:'short'}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-6"> 
+                        <h5 class="title">Client</h5>
+                        <hr>
+                        <form class="formdata">
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Name :</div>
+                                <div class="col-sm-8 ">
+                                  {{obj.userInfo.username}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Email : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.userInfo.email}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Phone : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.userInfo.number}}
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h5 class="title">Billing Address</h5>
+                        <hr>
+                        <form class="formdata">
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Name :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.firstname}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Address :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.address}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> City :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.city}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Post Code :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.pincode}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Phone :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.phone}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 class="title">Shipping Address</h5>
+                        <hr>
+                        <form class="formdata">
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Name :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.firstname}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Address : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.address}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> City : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.city}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Post Code :</div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.pincode}}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4"> Phone : </div>
+                                <div class="col-sm-8 ">
+                                    {{obj.deliveryInfo.address.phone}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 class="title">Payment Details</h5>
+                        <hr>
+                        <form class="formdata">
+                            <div class="row">
+                            <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Total : </div>
+                                <div class="col-sm-6"> <i class="fa fa-rupee">{{obj.subTotal}}</i> </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Discount : </div>
+                                <div class="col-sm-6"> 50% </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Tax : </div>
+                                <div class="col-sm-6"> 5 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Delivery Charge : </div>
+                                <div class="col-sm-6"> {{obj.deliveryInfo.deliveryCharge}} </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Pay Amount : </div>
+                                <div class="col-sm-6"> <i class="fa fa-rupee">{{obj.grandTotal}}</i></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Payment status : </div>
+                                <div class="col-sm-6"> 
+                                <span class="lable lable-danger">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group row">
+                                <div class="col-sm-6"> Payment Type : </div>
+                                <div class="col-sm-6"> {{obj.paymentInfo.paymentMode}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card cardview mt-4">
+                    <div class="card-header bg-info">
+                        <h4 class="title text-white">
+                            <u>Products Info</u>
+                        </h4>
+                    </div> 
+                    <div class="card-body table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead class="text-center title">
+                                <tr >
+                                    <th>#</th>
+                                    <th>Product Name</th>
+                                    <th >Price</th> 
+                                    <th>Extra Ingredient</th>
+                                    <th>Size / Quantity</th>
+                                    <th>Total</th>
+                                
+                                </tr>
+                                
+                            </thead>  
+                            <tbody class="text-center formdata" *ngFor="let payment of obj.orderItem; let i = index">
+                                <tr >
+                                    <td>{{i+1}}</td>
+                                    <td>{{payment.productName}}</td>
+                                    <td>{{payment.price}}</td>
+                                    <td>--</td>
+                                    <td>{{payment.Qty}}</td>
+                                    <td><i class="fa fa-rupee">{{obj.subTotal}}</i></td>   
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td class="text-right">
+                                        <strong> Total: </strong>
+                                    </td>
+                                    <td><i class="fa fa-rupee">{{obj.subTotal}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td class="text-right">
+                                        <strong> Tax: </strong>
+                                    </td>
+                                    <td></td>
+                                </tr>   
+                                <tr>
+                                    <td colspan="4"></td>
+                                    <td class="text-right">
+                                        <strong> GrandTotal: </strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</section>

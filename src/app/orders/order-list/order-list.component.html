@@ -1,0 +1,62 @@
+<section class="order-page">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card ordercard">
+                <div class="card-header color"><h2 class="head">Order List</h2></div>
+                <div class="card-body table-responsive " >
+                    <table class="table table-hover">
+                        <thead  class="color">
+                            <tr >
+                                <th>Order Id</th>
+                                <th> Name</th>
+                                <th >Email</th> 
+                                <th>Mobile Number</th>
+                                <th>status</th>
+                                <th>Delivery Mode</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                                <th>View</th>
+                            </tr>
+                            
+                        </thead>  
+                        <tbody class="text-center">
+                            <tr *ngFor="let order of orderData; let i = index">
+                                <td>{{order.orderId}}</td>
+                                <td>{{order.userInfo.username}}</td>
+                                <td>{{order.userInfo.email}}</td>
+                                <td>{{order.userInfo.number}}</td>
+                                <td >
+                                    <span class="badge" [ngClass]="{
+                                        'badge-warning':order.status[order.status.length-1].status === 'Pending',
+                                        'badge-info':order.status[order.status.length-1].status === 'Accepted',
+                                        'badge-primary':order.status[order.status.length-1].status === 'On the Way',
+                                        'badge-danger':order.status[order.status.length-1].status === 'Cancelled',
+                                        'badge-success':order.status[order.status.length-1].status === 'Delivered'
+                                      }">
+                                      {{order.status[order.status.length-1].status}}
+                                    </span>
+                                </td>
+                                <td>{{order.paymentInfo.paymentMode}}</td>
+                                <td><i class="fa fa-rupee">{{order.grandTotal}}</i></td>
+                                <td>
+                                    <select class="form-control-sm" (change)="onStatusChange($event, i)">
+                                        <option value="Pending" [selected]="order.status[order.status.length-1].status === 'Pending'">Pending</option>
+                                        <option value="Accepted" [selected]="order.status[order.status.length-1].status === 'Accepted'">Accepted</option>
+                                        <option value="On the Way"[selected]="order.status[order.status.length-1].status === 'On the Way'">On the Way</option>
+                                        <option value="Cancelled" [selected]="order.status[order.status.length-1].status === 'Cancelled'">Cancelled</option>
+                                        <option value="Delivered" [selected]="order.status[order.status.length-1].status === 'Delivered'">Delivered</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-light" type="button" (click)="onView(i)" ><i class="fa fa-eye"></i></button>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

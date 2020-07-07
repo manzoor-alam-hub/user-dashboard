@@ -1,11 +1,12 @@
 .navbar{
-    overflow: hidden;
+    /* overflow: hidden; */
     /* background-color: #24578f; */
-    background-color: #203e5f;
-    justify-content: unset;
-    box-shadow: 0 0 4px 2px #456792;
+    /* background-color: #203e5f; */
+    background-color: #1aacda;
+    justify-content:flex-start;
+    box-shadow: 0 0 4px 2px #66b8d8;
 }
-.navbar a {
+  .headerstyl{
     float: left;
     display: block;
     color: #f2f2f2;
@@ -13,26 +14,22 @@
     padding: 10px 25px;
     text-decoration: none;
     font-size: 20px;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -8px;
+    transition: all 0.3s;
+    text-shadow: 0px 1px 2px #00000059;
   }
-  .navbar a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  .navbar .icon {
-    display: none;
+  .headerstyl:hover{
+    color:cyan;
+    border-bottom-color: cyan; 
   }
   @media screen and (max-width: 600px) {
     .navbar a:not(:first-child){display: none;}  
-    .navbar a.icon {
-      float: right;
-      display: block;
-    }
   }
   
   @media screen and (max-width: 600px) {
     .navbar.responsive {position: relative;}
-    .navbar.responsive .icon {
+    .navbar.responsive {
       position: absolute;
       right: 0;
       top: 0;
@@ -41,4 +38,19 @@
         display: block;
         text-align: left;
       }
+    }
+
+    .applogo{
+      width: 60px;
+      height: 30px;
+      margin-bottom: -5px;
+      filter:brightness(350%) drop-shadow(3px 5px 3px darkblue);
+    } 
+    .food{
+      font-style: oblique;
+      font-size: 20px;
+      font-weight: 600;
+      font-family: auto;
+      color: #d3e6fc;
+      text-shadow: 3px 5px 3px #0000004d;
     }

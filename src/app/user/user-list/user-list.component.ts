@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationModel } from 'src/app/registration-page/registration.model';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
+import { Authservice } from 'src/app/auth/auth.service';
+
 
 @Component({
   selector: 'app-user-list',
@@ -12,24 +14,29 @@ export class UserListComponent implements OnInit {
     public userData: RegistrationModel[]= [];
    
 
-  constructor( private router: Router, private route:ActivatedRoute) {
-      this.userData = JSON.parse(localStorage.getItem('user'));
-    
+  constructor( private router: Router, private authService:Authservice) {
       
    }
 
-   onEdit(index:number){
-      this.router.navigate(['/user-update', index]);
+   onEdit(userId){
+      this.router.navigate(['/user-update',userId]);
    }
-   switchEnable(){ 
+   switchEnable(index:number){ 
       console.log(this.userData);
-      if(this.userData && this.userData.length>0){
-         localStorage.setItem('user', JSON.stringify(this.userData));
-      }
+      const obj = this.userData[index];
+      this.authService.updateUserdata(obj);
+      // if(this.userData && this.userData.length>0){
+      //    localStorage.setItem('user', JSON.stringify(this.userData));
+      // }
    }
 
   ngOnInit() {
-    
+      const usr = this.authService.getUserdata().subscribe(
+         (data)=>{
+            console.log(data);
+            this.userData = data;
+         }
+      )
     
   }
 

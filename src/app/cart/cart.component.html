@@ -1,0 +1,111 @@
+<div class="breadcrumb-wrap">
+    <img src="../../assets/groceries.jpg" class="bg-img">
+    <div class="overlay-bg"></div>
+    <div class="overlay-content">
+        <h1>Shopping Cart</h1>
+    </div>
+</div>
+
+<div class="container" >
+    <section class="cart" *ngIf="shoppingCart?.products?.length > 0">
+        <div class="table-responsive" >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="head">Image</th>
+                        <th class="head">Details</th>
+                        <th class="head">Quantity</th>
+                        <th class="head"> Discount </th>
+                        <th class="head">Price</th>
+                        <th class="head">Cost Price</th>
+                        <th class="head">Remove Item</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-light text-center" *ngFor="let product of shoppingCart.products; let i = index">
+                        <td>
+                            <img [src]="product.imagePath" class="img-responsive" width="100" height="100">
+                        </td>
+                        <td>
+                            <a  class="nav-link">{{product?.productName}}</a>
+                            <!-- <span class="badge" [ngClass]="{'badge-success':cart.instock >= 5,
+                                'badge-danger':cart.instock < 5}">In-stock: {{cart.instock}}</span> -->
+                        </td>
+                        <td>
+                            <div class="btn-group ">
+                                <button class="btn btn-sm btn-success cart-btn text-white"  (click)="decreaseQty(product.id)">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <span class="cart-btn">{{product.qty}}</span>
+                                <button class="btn btn-sm btn-success cart-btn text-white"  (click)="increaseQty(product?.id)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <span> {{product.discount}}%</span>
+                        </td>
+                        <td>
+                            <span><i class="fa fa-rupee"> 
+                               <del style="color: red;">{{product?.actualPrice}}</del> <b style="font-size: 20px;">{{product?.discountPrice}}</b>
+                             </i></span>
+                        </td>
+                        
+                        <td>
+                            <span><i class="fa fa-rupee" > {{ product?.totalPrice}} </i></span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger rounded-circle" title="Remove" (click)="deleteItem(product?.id)"><i class="fa fa-times"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5 option-radio">
+                <div class=" deliver  mx-3">
+                    <label class="  radio-button">
+                        Delivery
+                        <input type="radio" name="Delivery" ngModel (click)="onDelivery()">
+                        <span class="checkmark " [ngStyle]="{'background-color':isDelivery == true ? 'green' : '#eee' }"></span>
+                    </label>
+                </div>
+                <div class="pickup" >
+                    <label class="radio-button">
+                        Pickup
+                        <input type="radio" name="pickup" ngModel (click)="onPickUp()">
+                        <span class="checkmark " [ngStyle]="{'background-color':isPickUp == true ? 'green' : '#eee' }"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row amount-wrapper" >
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5">
+                <div class="row" >
+                    <label class="col-sm-6">SubTotal : </label>
+                    <div class="col-sm-6  price">Rs{{ shoppingCart?.subTotal }}</div> 
+                </div>
+                <div class="row" *ngIf="isDelivery">
+                    <label class="col-sm-6">Delivery Charge :</label>
+                    <div class="col-sm-6 t price">Rs {{shoppingCart.deliveryCharges}}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <label class="col-sm-6 total"><strong>Grand Total :</strong></label>
+                    <div class="col-sm-6 "><strong>Rs {{isDelivery? (shoppingCart.grandTotal + shoppingCart.deliveryCharges) : shoppingCart?.grandTotal}} </strong></div>  
+                </div>
+                <button class="btn  Checkout-btn btn-color " (click)="checkout()" > Checkout <li class="fa fa-arrow-right mx-2"></li></button>
+                <button class="btn btn-warn btn-color"(click)="navigateToCart()">continue shopping</button>
+            </div>
+        </div>
+    </section>
+    <div class="empty-message"*ngIf="shoppingCart?.products?.length == 0" >
+        <img src="../../assets/empty box.png" width="250" height="200"><br><br>
+        <h5 >Your Cart is empty!</h5>
+        <p style="color: gray;">Add items to it now.</p>
+        <button class="btn btn-primary " (click)="navigateToCart()">Shop now</button>
+    </div>
+</div>

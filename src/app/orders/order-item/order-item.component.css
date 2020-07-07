@@ -1,0 +1,36 @@
+.order-sec{
+    background-color: #f1f3f6;
+    border-radius: 2px;
+    font-family: Roboto,Arial,sans-serif;
+    letter-spacing: 0;
+    padding: 24px;
+}   
+.order-details{
+   transition: all 0.3s;
+
+  } 
+.order-details:hover{
+    box-shadow: 0px 1px 5px 2px #00000014; 
+}
+.ordernav{
+    /* font-size: 14px; */
+    text-decoration: none;
+    color: #212121;
+    font-weight: 400;
+}
+.deliverymsg{
+    font-size: 14px;
+}
+.deliverpart{
+    display: flex;
+}
+.dot{
+    width: 10px;
+    height: 10px;
+    background-color: #26a541;
+    border: 2px solid #26a541;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    margin-top: 7px;
+}

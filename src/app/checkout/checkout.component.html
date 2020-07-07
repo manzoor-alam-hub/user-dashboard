@@ -1,0 +1,274 @@
+<div class="breadcrumb-wrap">
+    <img src="../../assets/checkout1.png" class="bg-img">
+    <div class="overlay-bg"></div>
+    <div class="overlay-content">
+        <h1>Checkout</h1>
+    </div>
+</div>
+<section class="checkout">
+    <div class="container">
+        <div class="wrapper">
+            <ul class="stepper">
+                <li class="active" >
+                    <a (click)="onDelivery()" style="cursor: pointer;">
+                        <span class="label" [ngStyle]="{'color':isVisible || pickDate ? '#C81912' : '#666666' }">{{pickDate ? 'Delivery Time': 'Delivery Address'}}</span>
+                    </a>
+                </li>
+                <li >
+                    <a>
+                        <span class="label"[ngStyle]="{'color':isOrderShow ? '#C81912' : '#666666' }" >Order Summary</span>
+                       
+                    </a>
+                </li>
+                <li >
+                    <a>
+                        <span class="label" [ngStyle]="{'color':isPaymentShow ? '#C81912' : '#666666' }">Payment Options</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
+            <section  class="address-content" *ngIf="isVisible" >
+                <div class="address-wrapper">
+                    <div class="section-title">
+                        Select Your delivery address
+                        <span></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" *ngFor="let address of addressData; let i = index">
+                            <div class="form-group address" >
+                                <a class="delete-link" (click)="onDelete(i)">Delete</a>
+                                <a class="edit-link" (click)="onUpdate(i)">Update</a>
+                                <label for="address">
+                                    <p class="name">{{address.firstname}} {{address.lastname}}</p>
+                                    <p class="phone"> Phone Number: {{address.phone}}</p>
+                                    <p>
+                                        {{address.address}} <br> {{address.city}}<br> {{address.state}} - {{address.pincode}}
+                                    </p>
+                                </label>
+                                <button class="btn btn-main"(click)="onDeliver(i)">Deliver Here</button>
+                            </div>
+                           
+                        </div>  
+                        <div class="col-sm-12">
+                            <div class="form-group formdata">
+                                <label class="add-address" (click)="onAddress()">
+                                    <i class="fa fa-plus"></i> {{editMode? 'Edit Address': 'Add New Address'}}
+                                </label>
+                                <div class="address-form" *ngIf="isAddressShow">
+                                    <form #addressForm="ngForm" (ngSubmit)="onSubmit(addressForm)">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="firstname">FirstName</label>
+                                                    <input class="form-control" name="firstname" [(ngModel)]="addressObj.firstname" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm ">
+                                                    <label for="lastname">LastName</label>
+                                                    <input class="form-control"  name="lastname" [(ngModel)]="addressObj.lastname" required>
+                                                </div>
+                                                <div class="col-sm-12 form-sm">
+                                                    <label for="address">Address</label>
+                                                    <input class="form-control" name="address" [(ngModel)]="addressObj.address" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="phone">Phone Number</label>
+                                                    <input class="form-control" name="phone" [(ngModel)]="addressObj.phone" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="pincode">Pincode</label>
+                                                    <input class="form-control" name="pincode" [(ngModel)]="addressObj.pincode" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="city">City/District</label>
+                                                    <input class="form-control" name="city" [(ngModel)]="addressObj.city" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="state">State</label>
+                                                    <input class="form-control" name="state" [(ngModel)]="addressObj.state" required>
+                                                </div>
+                                                <div class="col-sm-6 form-sm">
+                                                    <label for="tag">Tag(Home/Office)</label>
+                                                    <input class="form-control" name="tag" ngModel required>
+                                                </div>
+                                                <div class="col-sm-12 text-right">
+                                                    <button class="btn-primary form-btn" type="submit" [disabled]="!addressForm.valid">{{editMode ? 'Update Address':'Save And Deliver Here'}}</button>
+                                                    <button class="btn-danger form-btn"(click)="onCancle()">Cancle</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="col-sm-6" *ngIf="pickDate">
+                <section class="date-picker">
+                    <div class="container">
+                        <div class=" date-wrapper">
+                            <span class="lable">Pick Date & Time</span>
+                            <div class="row mt-3">
+                                <div class="col-sm-8">
+                                    <form class="form" #dateForm="ngForm" (ngSubmit)="onContinue(dateForm)">
+                                        <div class="form-group" >
+                                        <label class="date"> Select Date :</label>
+                                          <div class="input-group pickdate ">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" required>
+                                            <div class="input-group-append">
+                                              <button class="btn btn-outline-primary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="date"> Select Time :</label>
+                                            <ngb-timepicker [(ngModel)]="time" name="time" [meridian]="meridian" required></ngb-timepicker>
+                                        </div>
+                                        <button class="btn btn-warning mt-2" type="submit"[disabled]="dateForm.invalid">Continue</button>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <section class="order" *ngIf="isOrderShow">
+                <div class="table-responsive" >
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="head">Image</th>
+                                <th class="head">Details</th>
+                                <th class="head">Quantity</th>
+                                <th class="head">Price</th>
+                                <th class="head">Discount</th>
+                                <th class="head">Cost Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-light text-center" *ngFor="let cart of shoppingCart.products; let i = index">
+                                <td>
+                                    <img [src]="cart.imagePath" class="img-responsive" width="100" height="100">
+                                </td>
+                                <td>
+                                    <a routerLink="/product-item" class="nav-link">{{cart.productName}}</a>
+                                    <span class="badge" [ngClass]="{'badge-success':cart.instock >= 5,
+                                        'badge-danger':cart.instock < 5}">In-stock : {{cart.instock}}</span>
+                                </td>
+                                <td>
+                                    <span>{{cart.Qty}}</span>
+                                </td>
+                                <td>
+                                    <span><i class="fa fa-rupee"> {{cart.price}} </i></span>
+                                </td>
+                                <td>
+                                    <span>{{cart.discount}}%</span>
+                                </td>
+                                <td>
+                                    <span><i class="fa fa-rupee" > {{cart.offer? cart.offerPrice : cart.totalPrice}} </i></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class=" row amount-wrapper">
+                    <div class="col-sm-7">
+                        <!-- <section class="date-picker">
+                            <div class="container">
+                                <div class=" date-wrapper">
+                                    <span class="lable">Pick Date & Time</span>
+                                    <div class="row mt-3">
+                                        <div class="col-sm-8">
+                                            <form class="form">
+                                                <div class="form-group" >
+                                                <label class="date"> Select Date:</label>
+                                                  <div class="input-group pickdate ">
+                                                    <input class="form-control" placeholder="yyyy-mm-dd"
+                                                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                                                    <div class="input-group-append">
+                                                      <button class="btn btn-outline-primary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </form>
+                                            <button class="btn btn-outline-primary time mb-3" type="submit">Pick Time</button>
+                                            <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section> -->
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <label class="col-sm-6"> Amount :</label>
+                            <div class="col-sm-6 text-right"> {{shoppingCart.subTotal}} </div>
+                            <label class="col-sm-6"> Tax Amount :</label>
+                            <div class="col-sm-6 text-right"> Rs 2.5 </div>
+                            <div class="col-sm-12"></div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <label class="col-sm-6 total"><strong> Total Amount :</strong> </label>
+                            <div class="col-sm-6 text-right total"> <strong>{{shoppingCart.grandTotal + 2.5}}</strong></div>
+                        </div>
+                        <button class="btn btn-payment pull-right mt-2" (click)="onPay()"><strong>Pay Now</strong> </button>
+                    </div>
+                </div>
+            </section>
+            <section class="payment" *ngIf="isPaymentShow">
+                <div class="payment-options">
+                    <div class="payment-title">
+                        Select Your payment mode
+                        <span></span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <form #paymentForm="ngForm" (ngSubmit)="placeOrder(paymentForm)">
+                            
+                                <div class="form-group">
+                                    <label for="cod">
+                                        <input type="checkbox" name="cod" ngModel required> Cash On Delivery
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card">
+                                        <input type="checkbox" name="visacard"  > 
+                                        <i class="fa fa-cc-visa fa-2x mx-2" style="color:navy;"></i>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="card">
+                                        <input type="checkbox" name="mastercard" > 
+                                        <i class="fa fa-cc-mastercard fa-2x mx-2" style="color:red;"></i>
+                                    </label>
+                                </div>
+                      
+                                <button class="btn btn-outline-success" type="submit">Place Order</button>
+                        </form>
+                        </div>
+                        <div class="col-sm-6 " *ngFor="let cart of shoppingCart.products; let i = index">
+                            <p class="payment-details">Price details</p>
+                            <hr>
+                            <div class="row">
+                                <label class="col-sm-6"> Price ( {{cart.Qty}} item ) :</label>
+                                <div class="col-sm-6 text-right"> {{shoppingCart.subTotal}} </div>
+                                <label class="col-sm-6"> Delivery Charges :</label>
+                                <div class="col-sm-6 text-right"> free </div>
+                                <div class="col-sm-12"></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <label class="col-sm-6 total"><strong> Total Payable :</strong> </label>
+                                <div class="col-sm-6 text-right total"> <strong>{{shoppingCart.grandTotal }}</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </section>
+        </div>
+    </div>
+</section>

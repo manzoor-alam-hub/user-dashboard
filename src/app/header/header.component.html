@@ -1,20 +1,27 @@
-<div class="navbar">
-    <a routerLink="/login" *ngIf="!isAuthenticated">
+<nav class="navbar" >
+    <a routerLink="/login" *ngIf="!isAuthenticated" class="headerstyl">
         <i class="fa fa-sign-in"> Login </i>
     </a>
-    <a routerLink="/home" *ngIf="isAuthenticated">
-        <i class="fa fa-home"> Home </i>
-    </a>
-    <a routerLink="/user" *ngIf="isAuthenticated">
-        <i class="fa fa-user"> User </i>
-    </a>
-    <a style="cursor: pointer;" *ngIf="isAuthenticated">
-        <i class="fa fa-envelope"> Contact </i>
-    </a>
-    <a href="#" class="icon ">
+     <a *ngIf="isAuthenticated" (click)="ontoggle()" class="headerstyl" style="cursor: pointer;">
         <i class="fa fa-bars"> </i>
     </a>
-    <a routerLink="/login"  style="cursor: pointer;" (click)="logout()" *ngIf="isAuthenticated">
+    <a *ngIf="isAuthenticated">
+        <img src="../../assets/classy-logo.webp" class="applogo"><sub class="food">food</sub>
+    </a>
+
+    <a routerLink="/home" *ngIf="isAuthenticated" class="headerstyl" >
+        <i class="fa fa-home"> Home </i>
+    </a>
+    <a routerLink="/user" *ngIf="isAuthenticated" class="headerstyl">
+        <i class="fa fa-user"> User </i>
+    </a>
+    <a style="cursor: pointer;" *ngIf="isAuthenticated" class="headerstyl">
+        <i class="fa fa-envelope"> Contact </i>
+    </a>
+    <a routerLink="/login" class="headerstyl"  style="cursor: pointer;" (click)="logout()" *ngIf="isAuthenticated">
         <i class="fa fa-sign-out "> Logout </i> 
-     </a>
-</div>
+    </a>
+    <a routerLink="/cart" class="headerstyl"   style="cursor: pointer;"   *ngIf="isAuthenticated">
+        <i class="fa fa-cart-plus"> Cart </i> 
+    </a>
+</nav>

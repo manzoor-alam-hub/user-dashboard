@@ -1,0 +1,38 @@
+<div class="breadcrumb-wrap">
+    <img src="../../../assets/grocery1.jpg" class="bg-img">
+    <div class="overlay-bg"></div>
+    <div class="overlay-content">
+        <h1>grocery store</h1>
+        <h6>Good things are just around the corner</h6>
+    </div>
+</div>
+<div class="container"><br>
+    <button class="btn productbtn" routerLink="/product-list">Product List Page</button>
+    <hr>
+    <div class="row ">
+        <div class="col-sm-4 mt-4" *ngFor="let product of productData; let i = index">
+            <div class="card-deck">
+                <div class="card" >
+                    <div class="view ">
+                        <img [src]="product.imagePath" class="card-img-top" width=" 200" height="250">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
+                        <button class="btn viewbtn text-white"  (click)="onNavigate(product.id)">{{product.instock>0 ? 'view': 'Out Of Stock'}}</button>
+                    </div>
+                    <div class="offer"> {{product.discount}}%</div>
+                    <div class="card-body text-center">
+                        <h5>{{product.productName}}</h5>
+                        <p class="badge" [ngClass]="{'badge-success':product.instock >= 5,
+                        'badge-danger':product.instock < 5}">{{product.instock == 0 ? 'Out-of-stock': 'In-stock :'}} <strong> {{product.instock? product.instock: ''}} </strong></p>
+                        <p class="price"><i class="fa fa-rupee"></i><del>{{product.discount? product.actualPrice: ''}}</del><i class="fa fa-rupee mx-2" >{{product.discount? product.discountPrice: product.actualPrice}}</i></p>
+                        <hr>
+                        <button class="btn btn-sm btn-outline-secondary"(click)="addToCart(product.id)">ADD <li class="fa fa-shopping-basket " [ngClass]="{'text-success':product.instock >= 5,
+                            'text-danger':product.instock < 5}"></li></button>
+                      
+                    </div>
+                </div>
+
+            </div>
+         </div>
+</div>

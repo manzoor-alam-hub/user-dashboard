@@ -1,0 +1,26 @@
+.head{
+    box-shadow: 0 0 3px 2px white;
+    padding: 10px;
+	text-align: center;
+	margin: 5px;
+}
+.table-head{
+	box-shadow: 0 0 2px 0px white;
+    text-align: center;
+}
+.color{
+    color: white;
+    background-image: radial-gradient(circle, #5c0067 0%, #00d4ff 100%);
+}
+
+.button{
+    padding: 8px 15px;
+    font-weight: 500;
+    font-size: 16px;
+    box-shadow: 0 0 3px 2px #5d9cc1;
+    color: #fff;
+    background-color: #1fc8db;
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    border-radius: inherit;
+}
+

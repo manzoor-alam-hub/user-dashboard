@@ -1,0 +1,54 @@
+<section class="product">
+<div class="container">
+    <div class="row  ">
+        <div class="col-sm-12 col-md-8 offset-md-2 mt-2 bg-white">
+            <h4 class="text-center text-white bg-text">Add Product Here</h4>
+            <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)" #productId>
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" class="form-control" name="productName" [(ngModel)]="newProduct.productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" name="price" [(ngModel)]="newProduct.actualPrice" (ngModelChange)="offerCalculation()" required>
+                </div>
+                <div class="form-group">
+                    <label for="discount">Discount %</label>
+                    <input type="number" class="form-control" name="discount" [(ngModel)]="newProduct.discount" (ngModelChange)="offerCalculation()" required>
+                </div>
+                <div class="form-group">
+                    <label for="offer">Offer Price</label>
+                    <input type="number" class="form-control" name="offer" [(ngModel)]="newProduct.discountPrice" readonly  required>
+                </div>
+                <div class="form-group">
+                    <label for="instock">In Stock</label>
+                    <input type="number" class="form-control" name="instock" [(ngModel)]="newProduct.instock"  required>
+                </div>
+                <div class="form-group">
+                    <label for="imagePath">Image URL</label>
+                    <input type="text" class="form-control" name="imagePath" [(ngModel)]="newProduct.imagePath" required #imagePath>
+                </div>
+                <div class="form-group" *ngIf="newProduct.imagePath">
+                   <img [src]="newProduct.imagePath" class="img-responsive" width="300" height="150" >
+                   
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea type="text" name="description" class="form-control"  rows="4" [(ngModel)]="newProduct.description" required></textarea>
+                </div>
+                <button class="btn btn-outline-primary" type="submit" id="productId" [disabled]="!productForm.valid" >Add Product</button>
+                <button class="btn btn-outline-secondary pull-right" type="button" (click)="navigateToList()" >Back</button>
+            </form>
+        </div>
+    </div>
+</div>
+<swal
+  #navigateToSwal
+  title="Want to go to Product list page?"
+  text="click and check product in list"
+  icon="question"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="navigateToList()">
+</swal>
+</section>

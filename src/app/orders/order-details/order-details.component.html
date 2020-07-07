@@ -1,0 +1,136 @@
+<section class="orderDetails">
+    <div class="container">
+        <div class="row part1">
+            <div class="col-sm-4">
+                <div class="addressTitle">
+                    <span class="title">Delivery Address</span>
+                    <div class="addressDetalis mt-2">
+                        <div class=" mb-1">
+                            <div class="userName">{{obj.deliveryInfo.address.firstname}} {{obj.deliveryInfo.address.lastname}}</div>
+                        </div>
+                        <div class="address">
+                            <address>
+                               {{obj.deliveryInfo.address.address}} - {{obj.deliveryInfo.address.pincode}} {{obj.deliveryInfo.address.state}}
+                            </address>
+                        </div>
+                        <div class="contact">
+                           <span class="pnumber">Phone number</span>
+                           <div class="mx-3" style="font-size: 14px;">{{obj.deliveryInfo.address.phone}}</div> 
+                        </div>
+                        <div class="trackedItem">
+                            <span>This order  is also tracked by {{obj.deliveryInfo.address.phone}} </span>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-sm-4">
+                <div class="rewards">
+                    <span class="title mx-3">Your Rewards</span>
+                    <a class="nav-link">
+                        <div class="reward-img mt-2">
+                            <img src="../../../assets/lockinCoinNew_cbaddf.svg" width="20" height="20">
+                                <span class="coins mx-2">10 SupperCoins</span>
+                                <div class="reward-text">Go to supperCoin Zone to know more</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="invoice-part">
+                    <span class="title mx-3">More actions</span>
+                    <div class="mx-3 mt-3">
+                        <img src="../../../assets/Invoiceimage.png" width="25" height="25">
+                        <span class="textinvoice mx-2 ">Download Invoice</span>
+                    </div>
+                    <button class="btn btninvoice mx-5 mt-1 ">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="container mt-3">
+            <div class="row part1">
+                <div class="col-sm-4">
+                    <div class="row" *ngFor="let data of obj.orderItem; let i = index">
+                        <div class="col-sm-5">
+                            <a routerLink="/product-details/{{data.productId}}" >
+                                <img [src]="data.imagePath" class="img-responsive" >
+                            </a>
+                        </div>
+                        <div class="col-sm-7">
+                            <a routerLink="/product-details/{{data.productId}}" class="productDisc">
+                               {{data.productName}}
+                            </a>
+                            <br>
+                            <span class="proItems"> Seller : Nandani </span> 
+                            <div class="price">
+                               <i class="fa fa-rupee"><strong>{{obj.grandTotal}}</strong></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 status">
+                    <div class="status1">
+                        <div class="ordered">
+                            <span>Ordered</span>
+                        </div>
+                        <div class="linestatus"></div>
+                        <div class="stline">
+                            <div class="line1"></div>
+                        </div>
+                    </div>
+                    <div class="status1">
+                        <div class="ordered">
+                            <span>Packed</span>
+                        </div>
+                        <div class="linestatus"></div>
+                        <div class="stline">
+                            <div class="line1"></div>
+                        </div>
+                    </div>
+                    <div class="status1">
+                        <div class="ordered">
+                            <span>Shipped</span>
+                        </div>
+                        <div class="linestatus"></div>
+                        <div class="stline">
+                            <div class="line1"></div>
+                        </div>
+                    </div>
+                    <div class="status1">
+                        <div class="ordered">
+                            <span>Delivered</span>
+                        </div>
+                        <div class="linestatus"></div>
+                    </div>
+                    <div class="pointer"></div>
+                    <div class="deliverybar">
+                        <div class="message">
+                            <span class="statustext">Your Order has been placed</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-3">
+                    <div class="dpart-3">
+                        <span class="ddate">Delivered on today</span>
+                    </div>
+                    <div class="rate">
+                        <a href="#" class="nav-link">
+                            <img src="../../../assets/star.svg" width="20" height="20">
+                            <span class="ratetext mx-1">Rate and Review Product</span>
+                        </a>
+                    </div>
+                    <div class="rate">
+                        <a href="#" class="nav-link">
+                            <img src="../../../assets/help.svg" width="20" height="20">
+                            <span class="ratetext mx-2">Need Help</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    
+</section>
+

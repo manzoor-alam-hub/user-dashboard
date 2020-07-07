@@ -1,0 +1,17 @@
+.order-view{
+    background-color: #e0e0fd;
+    padding: 24px;
+}
+.cardview{
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,.08);
+     border:1px solid #17a2b8;
+}
+.formdata{
+    font-family: "Source Sans Pro",sans-serif;
+    color: #656565;
+    font-size: 15px;
+}
+.title{
+    font-family: "Source Sans Pro",sans-serif;
+    color: #656565;
+}

@@ -15,12 +15,15 @@
 }
 .sign-in{
     background-color: white;
-    box-shadow: -1px 1px 4px 4px #0000000d;
-    border-radius: 10px;
+   
+    padding: 30px 0 30px ;
 }
 .sign-content{
     padding-top: 67px;
     padding-bottom: 87px;
+    /* padding: 30px 0 30px ; */
+    border-radius: 10px;
+    box-shadow: -1px 1px 4px 4px #0000000d;
 }
 .form-submit{
     background: #6dabe4;

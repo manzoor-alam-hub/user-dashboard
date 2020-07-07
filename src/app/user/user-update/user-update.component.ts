@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationModel } from 'src/app/registration-page/registration.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Authservice } from 'src/app/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-update',
@@ -8,35 +10,33 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./user-update.component.css']
 })
 export class UserUpdateComponent implements OnInit {
-    public obj:any ;// RegistrationModel;
-    private elementIndex:number;
+    public obj:RegistrationModel = new RegistrationModel();
     private userField: RegistrationModel[] = [];
-  constructor(private route:ActivatedRoute, private router:Router) { }
+  constructor(private route:ActivatedRoute, private router:Router,
+     private authService:Authservice, private toastre:ToastrService) { }
 
 
   onUpdate(){
-   console.log(this.obj)
-    this.userField[this.elementIndex] = this.obj; 
-    localStorage.setItem('user', JSON.stringify (this.userField));
+    this.authService.updateUserdata(this.obj);
     this.router.navigate(['/user'])
      
   }
 
   ngOnInit() {
     this.route.params.subscribe(
-      (data:any)=>{
+      (data)=>{
         if(data.id) {
-          const elementInd = data.id;
-          this.elementIndex = elementInd;
-          this.userField = JSON.parse(localStorage.getItem('user'));
-          if(this.userField && this.userField.length > 0 && this.userField[data.id]) {
-            this.obj = this.userField[data.id];
-            console.log(this.obj);
-          }
+          const userId = data.id;
+          this.authService.getUserdataById(userId).subscribe((res:any)=>{
+            if(res && res.id){
+              this.obj = res;
+            }else{
+              this.toastre.info('User not found !!')
+            }
+          }); 
         }
         
-      }
-    );
+      });
   }
 
 }

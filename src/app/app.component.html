@@ -1,8 +1,17 @@
-<app-header></app-header>
-<!-- <app-category></app-category> -->
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="row">
+  <div class="col-12">
+    <app-header></app-header>
+  </div>
+  <div class="col-sm-2"  *ngIf="isLogin && isSideBarOpen">
+    <app-sidebar ></app-sidebar>
+  </div>
+  <div class="container mt-2" [ngClass]="{'col-sm-10':isSideBarOpen === true,
+  'col-sm-12':isSideBarOpen === false}">
+    <router-outlet></router-outlet>
+  </div>
+  
 </div>
+<app-footer *ngIf="isLogin"></app-footer>
 
 
 
@@ -43,36 +52,6 @@
 
 
 
-
-<!-- <div class="container-fluid">
-    <div class="row mt-4">
-        <div class="col-sm-12">
-            <i class="fa fa-angle-left fa-2x"></i>
-            <i class="fa fa-shopping-bag pull-right fa-2x"></i>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-sm-12 col-md-6 offset-md-3">
-            <div class="carousel slide "  >
-                <div class="carousel-inner rounded ">
-                  <div class="carousel-item active">
-                    <img class="img-responsive" src="../assets/image.jpg" alt="First slide">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="img-responsive " src="../assets/image.jpg" alt="Second slide">
-                  </div>
-                  <div class="carousel-item">
-                    <img class="img-responsive" src="../assets/image.jpg" alt="Third slide">
-                  </div>
-                </div>
-              </div>
-        </div>
-    </div>
-    <button class="btn btn-sm btn-warning pull-right"><i class="fa fa-heart"></i></button>
-        
-    
-    
-</div> -->
 
 
 

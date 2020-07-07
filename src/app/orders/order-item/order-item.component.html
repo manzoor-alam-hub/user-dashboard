@@ -1,0 +1,34 @@
+<section class="order-sec">
+    <div class="container">
+        <div class="row ">
+            <div class="col-sm-12">
+                <div class="list-group-item order-details mb-2" *ngFor="let order of orders;  let i = index">
+                    <a (click)="onNvigate(i)" style="cursor: pointer;" class="nav-link ordernav">
+                    <div class="row"  *ngFor="let product of order.orderItem">
+                            <div class="col-sm-3">
+                                <div class="product-img">
+                                    <img [src]="product.imagePath" alt="" width="75" height="80">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="product-title">
+                                    <h5>{{product.productName}}</h5>
+                                    <p>{{product.description}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-2"><i class="fa fa-rupee"> {{order.grandTotal}} </i></div>
+                            <div class="col-sm-3">
+                                <div class="deliverpart">
+                                    <span class="dot"></span>
+                                    <h5>Delivered on {{order.deliveryInfo.date}}</h5>
+                                </div>
+                               
+                                <div class="deliverymsg">Your item has been delivered</div>
+                            </div>
+                        </div> 
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,30 @@
+.invoice{
+    background-color: #e0e0fd5c;
+    padding: 24px;
+}
+.invoicecard{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
+}
+.formdata{
+    font-family:"Source Sans Pro",sans-serif;
+    color: #656565;
+    font-size: 15px;
+}
+.title{
+    font-family:"Source Sans Pro",sans-serif;
+    color: #656565;
+}
+.invoice1{
+    font-family:"Source Sans Pro",sans-serif;
+    color: #656565;
+    font-size: 15px;
+}
+.ordrId{
+    font-family:"Source Sans Pro",sans-serif;
+    color: #656565;
+    font-size: 24px;
+    font-weight: 700;
+}
+.icon{
+    color: #17a2b8;
+}

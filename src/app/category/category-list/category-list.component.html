@@ -1,26 +1,71 @@
-
     <div class="row">
-        <div class="col-sm-12">
+        <div  [ngClass]="{'col-sm-7': isViewCategory === true, 'col-sm-12': isViewCategory === false}">
             <div class="card  ">
                 <div class="card-header color"><h2 class="head">Category List</h2></div>
                 <div class="card-body table-responsive " >
-                    <button class="btn pull-right mb-2">Add Items</button>
-                    <table class="table table-hover border">
+                    <button class=" btn btn-sm button pull-right mb-2" (click)="onNavigate()"><i class="fa fa-plus"></i> Add New category</button>
+                    <table class="table table-hover">
                         <thead  class="color">
                             <tr >
-                                <th >No.</th>
-                                <th >Category Name</th>
+                                <th>No.</th>
+                                <th>Category Name</th>
                                 <th >Type</th>
-                                <th >Edit</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
                                 <th>View</th>
+                                <th>Image</th>
                             </tr>
+                            
                         </thead>
-                        <tbody>
+                        <div class="search-box mt-1 mb-1">
+                            <input type="text" class="form-control mx-1" [(ngModel)]="search" placeholder="Search">
+                        </div>
                         
+                        <tbody>
+                            <tr *ngFor="let category of categoryData | filter: search; let i = index">
+                                <th>{{i+1}}.</th>
+                                <td>{{category.categoryname}}</td>
+                                <td>{{category.type}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" type="button" (click)="onEdit(category.id)" ><i class="fa fa-edit"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" type="button" (click)="onDelete(category.id)"><i class="fa fa-trash"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-light" type="button" (click)="onView(category.id)" ><i class="fa fa-eye"></i></button>
+                                </td>
+                                <td>
+                                    <img src="../../../assets/hyderabadi biryani new.jpg" width="100" height="100" class="img-thumbnail">
+                                </td>
+                                
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        <div class="col-sm-5" *ngIf="isViewCategory">
+
+                    <div class="card">
+                        <div class="card-header color">
+                            <h5><strong> Name : </strong> {{obj.categoryname}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p> <strong> Type : </strong> {{obj.type}}</p>
+                            <p> <strong> Description : </strong> {{obj.description}}</p>
+                            <button class="btn btn-sm btn-primary pull-right"(click)="onHide()">Hide</button>
+                        </div>
+                    </div>
+        </div>
     </div>
+    <swal
+  #deleteSwal *ngFor="let category of categoryData"
+  title="Are you sure?"
+  text="click and delete category in list"
+  icon="warning"
+  [showCancelButton]="true"
+  [focusCancel]="true"
+  (confirm)="onDelete(category.id)">
+</swal>
 
