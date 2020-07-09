@@ -4,7 +4,7 @@
             <div class="col-sm-12">
                 <div class="list-group-item order-details mb-2" *ngFor="let order of orders;  let i = index">
                     <a (click)="onNvigate(i)" style="cursor: pointer;" class="nav-link ordernav">
-                    <div class="row"  *ngFor="let product of order.orderItem">
+                    <div class="row"  *ngFor="let product of order.orderItem; let productInd = index">
                             <div class="col-sm-3">
                                 <div class="product-img">
                                     <img [src]="product.imagePath" alt="" width="75" height="80">
@@ -16,14 +16,14 @@
                                     <p>{{product.description}}</p>
                                 </div>
                             </div>
-                            <div class="col-sm-2"><i class="fa fa-rupee"> {{order.grandTotal}} </i></div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2" *ngIf="productInd === 0"><i class="fa fa-rupee"> {{order.grandTotal}} </i></div>
+                            <div class="col-sm-3" *ngIf="productInd === 0">
                                 <div class="deliverpart">
                                     <span class="dot"></span>
-                                    <h5>Delivered on {{order.deliveryInfo.date}}</h5>
+                                    <h5>{{order.status[order.status.length-1].status}}&nbsp;<span><small>({{order.status[order.status.length-1].timeStemp | date}})</small></span> </h5>
                                 </div>
                                
-                                <div class="deliverymsg">Your item has been delivered</div>
+                                <div class="deliverymsg text-center">{{order.status[order.status.length-1].title}}</div>
                             </div>
                         </div> 
                     </a>

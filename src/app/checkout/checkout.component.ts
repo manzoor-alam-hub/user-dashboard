@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbDateStruct, NgbTimepickerConfig, NgbTimeStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateStruct, NgbTimepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { AddressModel } from './address.model';
 import { Cart } from '../cart/cart.model';
@@ -41,7 +41,8 @@ export class CheckoutComponent implements OnInit {
     this.shoppingCart = localStorage.getItem('cartItem') ? JSON.parse(localStorage.getItem('cartItem')) : new Cart();
     this.orderObj.grandTotal = this.shoppingCart.grandTotal;
     this.orderObj.subTotal = this.shoppingCart.subTotal;
-    this.orderdata = localStorage.getItem('orderItem')? JSON.parse(localStorage.getItem('orderItem')): new OrdersModel();
+    this.orderObj.orderItem = this.shoppingCart.products;
+    // this.orderdata = localStorage.getItem('orderItem')? JSON.parse(localStorage.getItem('orderItem')): new OrdersModel();
     this.getTime();
     config.spinners = false;
     const checkData = JSON.parse(localStorage.getItem('address'));
@@ -113,12 +114,12 @@ export class CheckoutComponent implements OnInit {
     this.isVisible = false;
     this.isPaymentShow = false;
     this.addressObj = this.addressData[index];
-    this.isPickUp = this.orderdata.deliveryDetails.isPickUp;
+    // this.isPickUp = this.orderdata.deliveryDetails.isPickUp;
     console.log('delivery', this.isPickUp);
     this.orderObj.deliveryInfo = {
       address: this.addressObj,
-      deliveryType: this.isPickUp== true ? 'PickUP':'Delivery',
-      deliveryCharge: this.isPickUp == true? 'Free': 30 
+      deliveryType: this.shoppingCart.deliveryOption,
+      deliveryCharge: this.shoppingCart.deliveryCharges
     }
   }
 
@@ -145,7 +146,6 @@ export class CheckoutComponent implements OnInit {
     this.isPaymentShow = true;
     this.isVisible = false;
     this.isOrderShow = false;
-    // this.orderObj.orderItem = this.shoppingCart.products;
     console.log(this.orderObj.orderItem);
   
     

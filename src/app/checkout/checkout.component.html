@@ -154,20 +154,20 @@
                                 </td>
                                 <td>
                                     <a routerLink="/product-item" class="nav-link">{{cart.productName}}</a>
-                                    <span class="badge" [ngClass]="{'badge-success':cart.instock >= 5,
-                                        'badge-danger':cart.instock < 5}">In-stock : {{cart.instock}}</span>
+                                    <!-- <span class="badge" [ngClass]="{'badge-success':cart.instock >= 5,
+                                        'badge-danger':cart.instock < 5}">In-stock : {{cart.instock}}</span> -->
                                 </td>
                                 <td>
-                                    <span>{{cart.Qty}}</span>
+                                    <span>{{cart.qty}}</span>
                                 </td>
                                 <td>
-                                    <span><i class="fa fa-rupee"> {{cart.price}} </i></span>
+                                    <span><i class="fa fa-rupee"> {{cart.actualPrice}} </i></span>
                                 </td>
                                 <td>
                                     <span>{{cart.discount}}%</span>
                                 </td>
                                 <td>
-                                    <span><i class="fa fa-rupee" > {{cart.offer? cart.offerPrice : cart.totalPrice}} </i></span>
+                                    <span><i class="fa fa-rupee" > {{cart.discount? cart.discountPrice : cart.totalPrice}} </i></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -250,18 +250,31 @@
                                 <button class="btn btn-outline-success" type="submit">Place Order</button>
                         </form>
                         </div>
-                        <div class="col-sm-6 " *ngFor="let cart of shoppingCart.products; let i = index">
-                            <p class="payment-details">Price details</p>
-                            <hr>
+
+                        <div class="col-sm-6 " >
+                            <p class="payment-details"><strong>Price details</strong></p>
+                                <hr>
                             <div class="row">
-                                <label class="col-sm-6"> Price ( {{cart.Qty}} item ) :</label>
-                                <div class="col-sm-6 text-right"> {{shoppingCart.subTotal}} </div>
-                                <label class="col-sm-6"> Delivery Charges :</label>
-                                <div class="col-sm-6 text-right"> free </div>
+                                <label class="col-sm-5"> Name</label>
+                                <div class="col-sm-4">Price*Quantity</div>
+                                <div class="col-sm-3 text-center"> Total </div>
                                 <div class="col-sm-12"></div>
                             </div>
+                            <ng-container *ngFor="let cart of shoppingCart.products; let i = index">
+                                <div class="row">
+                                    <label class="col-sm-5"> {{cart.productName}}</label>
+                                    <div class="col-sm-4 text-center"> {{cart.discountPrice}}*{{cart.qty}}  </div>
+                                    <div class="col-sm-3 text-center"> {{cart.totalPrice}} </div>
+                                    <div class="col-sm-12"></div>
+                                </div>
+                            </ng-container>
+                            
                             <hr>
                             <div class="row">
+                                <label class="col-sm-6"><strong> Delivery Type :</strong></label>
+                                <div class="col-sm-6 text-right"><strong>{{shoppingCart.deliveryOption}}</strong></div>
+                                <label class="col-sm-6"><strong>Delivery Charges :</strong></label>
+                                <div class="col-sm-6 text-right"> <strong>{{shoppingCart.deliveryCharges}}</strong></div>
                                 <label class="col-sm-6 total"><strong> Total Payable :</strong> </label>
                                 <div class="col-sm-6 text-right total"> <strong>{{shoppingCart.grandTotal }}</strong></div>
                             </div>

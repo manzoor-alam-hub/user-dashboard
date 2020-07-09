@@ -59,7 +59,7 @@
                                 <button class="btn btn-cart" [disabled]="obj.instock == 0" (click)="addToCart(obj.id)"><i class="fa fa-shopping-cart fa-lg"></i> {{obj.instock ? 'Add To cart': 'Notify me'}} </button>
                             </div>
                             <div class="col-sm-12 col-md-6 mb-3">
-                                <button class="btn btn-primary " (click)="byNow()">BUY NOW</button>
+                                <button class="btn btn-primary " (click)="byNow(obj.id)">BUY NOW</button>
                             </div>
                         </div>
                     </div>

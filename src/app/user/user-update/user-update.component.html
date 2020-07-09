@@ -16,6 +16,11 @@
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email" [(ngModel)]="obj.email"  required >
                             </div>
+                            <div class="form-group" *ngIf="obj.isAdmin !== undefined">
+                                <label>Admin</label>
+                                <input type="checkbox" (change)="isAdminChange()" [(ngModel)]="obj.isAdmin" class="form-control" name="checkbox" >
+                            </div>
+                            
                             <button class="btn btn-success" type="submit" [disabled]="!updateForm.valid" > Update </button>
                         </form>
                     </div>

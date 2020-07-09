@@ -18,8 +18,8 @@ export class ProductDetailsComponent implements OnInit {
   public obj:ProductAddModel = new ProductAddModel();
   public productData:ProductAddModel[] = [];
   public qtyNumber=1;
-  public totalPrice = 0;
-  public offerPrice: number;
+  public totalPrice:number;
+  // public offerPrice: number;
   // public price:number
   public isfavorite:boolean;
   public shoppingCart: Cart;
@@ -118,15 +118,26 @@ export class ProductDetailsComponent implements OnInit {
     // this.tostre.success('Item added to cart', 'Success')
   }
 
-  byNow(){
-    
+  byNow(id){
+    let productDetail:ProductAddModel;
+    this.productService.getProductDetailById(id).subscribe(
+      (res:any)=>{
+        productDetail = res;
+        this.cartSupportingService.addProductInCart(productDetail, this.qtyNumber).then((success: any)=>{
+          if(success && success.status === 200) {
+          this.tostre.success(success.message, 'Yehh!!!');
+          this.router.navigate(['/checkout']);
+          }
+        }).catch ((err) => {
+          this.tostre.error(err.message, 'Sorry!!!');
+        })
+      }
+    )
   }
 
   multilyItem(){
-    
-    
     if(this.obj.discount > 1){
-      this.offerPrice = this.obj.discountPrice *(this.qtyNumber)
+      this.totalPrice = this.obj.discountPrice *(this.qtyNumber)
 
     }else{
       this.totalPrice = this.obj.actualPrice * (this.qtyNumber);

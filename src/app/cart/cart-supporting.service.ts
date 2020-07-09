@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import {AngularFirestore} from '@angular/fire/firestore';
 import { ToastrService } from 'ngx-toastr';
-import { resolve } from 'url';
+
 
 @Injectable(
     {
@@ -8,10 +9,21 @@ import { resolve } from 'url';
     }
 )
 export class CartSupportingService{
-    constructor(private toaster: ToastrService) {
+    constructor(private toaster: ToastrService, private afStore:AngularFirestore) {
 
     }
-    isProductInStock(productId) {}
+
+    isProductInStock(productDetail, quantityAvailableInCart) {
+        return new Promise((resolve, reject)=>{
+            if(productDetail && productDetail.instock && productDetail.instock > quantityAvailableInCart) {
+                resolve({status : 200, message : 'Enough Quantity available'});
+            } else {
+                reject({status : 500, message : 'Enough quantities are not available'});
+            }
+        })
+    }
+
+
     isProductAlredyInCart(productId) {
         return new Promise( (resolve, reject) =>  {
             const cart = this.getCart();
@@ -62,17 +74,21 @@ export class CartSupportingService{
 
         })
        
-
-
     }
+
     decrementProductQuantity(productId) {
         return new Promise((resolve, reject)=>{
             const cart = this.getCart();
             if(cart.products.length > 0){
                 const itemFound = cart.products.findIndex((item)=>{
                     if(item.id === productId){
-                        item.qty--
-                        return item; 
+                        if(item.qty > 1){
+                            item.qty--
+                            return item;
+                        }else{
+                            this.toaster.error('minimum one quantities is required','message');
+                        }
+                        
                     }
                 });
                 if(itemFound > -1){
@@ -124,6 +140,7 @@ export class CartSupportingService{
         return new Promise((resolve, reject) => {
             const cart = this.getCart();
             isDelivery ? cart.deliveryCharges = deliveryCharges : cart.deliveryCharges = 0;
+            isDelivery ? cart.deliveryOption = 'Delivery' : cart.deliveryOption = 'Pickup';
             this.cartCalculation(cart).then((updatedCart) => {
                 this.updateCart(updatedCart).then((updateSuceess) => {
                     if(updateSuceess) {
@@ -171,7 +188,8 @@ export class CartSupportingService{
             deliveryCharges: 0,
             products:[],
             grandTotal: 0,
-            subTotal: 0
+            subTotal: 0,
+            deliveryOption: 'Pickup'
         }
         const cart = localStorage.getItem('cartItem') ? JSON.parse(localStorage.getItem('cartItem')) : emptyCart;
         return cart;
@@ -202,7 +220,8 @@ export class CartSupportingService{
                     deliveryCharges: 0,
                     products:[],
                     grandTotal: 0,
-                    subTotal: 0
+                    subTotal: 0,
+                    deliveryOption : 'Pickup'
                 }
                 resolve(emptyCartObject);
             }

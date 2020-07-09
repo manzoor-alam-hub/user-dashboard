@@ -9,7 +9,10 @@ export class CartService{
     constructor(private afStore:AngularFirestore){}
 
     addToCart(data){
-        return this.afStore.collection('cartItem').add(data);
+        return this.afStore.collection('cartItem').add(data).then((cartRes)=>{
+            data.id = cartRes.id;
+            this.afStore.collection('cartItem').doc(cartRes.id).set(data);
+        })
     }
 
     getCartItem(){
@@ -23,6 +26,10 @@ export class CartService{
             })
         )
 
+    }
+
+    getCartItemById(productId) {
+        return this.afStore.doc(`products/${productId}`).valueChanges();
     }
 
     updateCart(data){

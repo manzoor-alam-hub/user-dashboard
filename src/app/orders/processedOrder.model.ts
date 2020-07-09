@@ -1,11 +1,11 @@
-import { ProductModel } from '../product/product.model';
+import { ProductModel, ProductAddModel, ProductInCart } from '../product/product.model';
 import { AddressModel } from '../checkout/address.model';
 
 export class ProcessedOrder{
         grandTotal: number;
         subTotal : number;
         orderId : string;
-        orderItem : Array<ProductModel> ;
+        orderItem : Array<ProductInCart> ;
         status : [{
             status: string,
             title: string,
