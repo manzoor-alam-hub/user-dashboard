@@ -28,8 +28,8 @@
                         </td>
                         <td>
                             <a  class="nav-link">{{product?.productName}}</a>
-                            <!-- <span class="badge" [ngClass]="{'badge-success':cart.instock >= 5,
-                                'badge-danger':cart.instock < 5}">In-stock: {{cart.instock}}</span> -->
+                            <!-- <span class="badge" [ngClass]="{'badge-success':product?.instock >= 5,
+                                'badge-danger':product?.instock < 5}">In-stock: {{product?.instock}}</span> -->
                         </td>
                         <td>
                             <div class="btn-group ">
@@ -67,15 +67,15 @@
                 <div class=" deliver  mx-3">
                     <label class="  radio-button">
                         Delivery
-                        <input type="radio" name="Delivery" ngModel (click)="onDelivery()">
-                        <span class="checkmark " [ngStyle]="{'background-color':isDelivery == true ? 'green' : '#eee' }"></span>
+                        <input type="radio" name="Delivery" >
+                        <span class="checkmark " (click)="onDeliveryChange(true)" [ngStyle]="{'background-color':isDelivery == true ? 'green' : '#eee' }"></span>
                     </label>
                 </div>
-                <div class="pickup" >
+                <div class="pickup">
                     <label class="radio-button">
                         Pickup
-                        <input type="radio" name="pickup" ngModel (click)="onPickUp()">
-                        <span class="checkmark " [ngStyle]="{'background-color':isPickUp == true ? 'green' : '#eee' }"></span>
+                        <input type="radio" name="Delivery" >
+                        <span class="checkmark "  (click)="onDeliveryChange(false)" [ngStyle]="{'background-color':isDelivery == false ? 'green' : '#eee' }"></span>
                     </label>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <hr>
                 <div class="row">
                     <label class="col-sm-6 total"><strong>Grand Total :</strong></label>
-                    <div class="col-sm-6 "><strong>Rs {{isDelivery? (shoppingCart.grandTotal + shoppingCart.deliveryCharges) : shoppingCart?.grandTotal}} </strong></div>  
+                    <div class="col-sm-6 "><strong>Rs {{shoppingCart.grandTotal}} </strong></div>  
                 </div>
                 <button class="btn  Checkout-btn btn-color " (click)="checkout()" > Checkout <li class="fa fa-arrow-right mx-2"></li></button>
                 <button class="btn btn-warn btn-color"(click)="navigateToCart()">continue shopping</button>

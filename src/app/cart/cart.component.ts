@@ -22,7 +22,11 @@ export class CartComponent implements OnInit {
 
   constructor(private tostre:ToastrService, private router: Router, private cartSerive:CartService, private cartSupportingService: CartSupportingService) {
     // this.shoppingCart = localStorage.getItem('cartItem') ? JSON.parse(localStorage.getItem('cartItem')) : new Cart();
-    this.shoppingCart = this.cartSupportingService.getCart();  
+    this.isDelivery = false;
+    this.shoppingCart = this.cartSupportingService.getCart();
+    if(this.shoppingCart && this.shoppingCart.deliveryCharges && this.shoppingCart.deliveryCharges > 0) {
+      this.isDelivery = true;
+    }  
     this.orderData = new OrdersModel;
       const checkOrder = JSON.parse(localStorage.getItem('orderItem'));
       checkOrder ? this.orderData = checkOrder : this.orderData.orderDetails = [];
@@ -39,7 +43,12 @@ export class CartComponent implements OnInit {
 
   }
   increaseQty(productId){
-    this.cartSupportingService.incrmentProductQuentity(productId);
+    this.cartSupportingService.incrmentProductQuentity(productId).then((response: any) => {
+      if(response && response.message) {
+        this.shoppingCart = this.cartSupportingService.getCart();
+      }
+    });
+    
     //  const obj = this.shoppingCart.products[index];
     //  const isQtyAvailable = this.checkQuentityOfProduct(obj.productId, obj.Qty);
     //  console.log(isQtyAvailable);
@@ -56,28 +65,33 @@ export class CartComponent implements OnInit {
     // ;
    
   }
-  checkQuentityOfProduct(productId, pickedQuentity) {
-    const allProducts = localStorage.getItem('product');
-    if(allProducts) {
-      const productArr: any [] = JSON.parse(allProducts);
-      const productData = productArr.find((data: any) => data.productId === productId);
-      if (productData) {
-        if(pickedQuentity < productData.instock) {
-          productData.Qty = (productData.instock - pickedQuentity);
-          return true;
-        } else {
-          this.tostre.error(`only ${productData.instock} item remaining in stock!!!`, 'Sorry');
-          return false;
-        }
-      } else {
-        this.tostre.error(`Product not available!!!`, 'Sorry');
-        return false;
-      }
-    }
+  // checkQuentityOfProduct(productId, pickedQuentity) {
+  //   // const allProducts = localStorage.getItem('product');
+  //   // if(allProducts) {
+  //   //   const productArr: any [] = JSON.parse(allProducts);
+  //   //   const productData = productArr.find((data: any) => data.productId === productId);
+  //   //   if (productData) {
+  //   //     if(pickedQuentity < productData.instock) {
+  //   //       productData.Qty = (productData.instock - pickedQuentity);
+  //   //       return true;
+  //   //     } else {
+  //   //       this.tostre.error(`only ${productData.instock} item remaining in stock!!!`, 'Sorry');
+  //   //       return false;
+  //   //     }
+  //   //   } else {
+  //   //     this.tostre.error(`Product not available!!!`, 'Sorry');
+  //   //     return false;
+  //   //   }
+  //   // }
 
-  }
+  // }
   decreaseQty(productId){
-    this.cartSupportingService.decrementProductQuantity(productId);
+    this.cartSupportingService.decrementProductQuantity(productId).then((response: any) => {
+      if(response && response.message) {
+        this.shoppingCart = this.cartSupportingService.getCart();
+    
+      }
+    });
     // const obj = this.shoppingCart.products[index];
     // console.log(obj.Qty);
     // if(obj.Qty >1){
@@ -126,6 +140,7 @@ export class CartComponent implements OnInit {
     // });
     // localStorage.setItem('cartItem', JSON.stringify(this.shoppingCart));
   }
+  
   checkout() {
     this.updateToStorage();
     if(this.isDelivery){
@@ -158,15 +173,15 @@ export class CartComponent implements OnInit {
 
   navigateToCart(){
     this.router.navigate(['/product-item']);
-  }
+  } 
 
-  onPickUp(){
-    this.isPickUp = true
-    this.isDelivery = false
+  onDeliveryChange(val) {
+    this.cartSupportingService.onChangeDeliveryOption(val).then((res: any)=> {
+      if(res.status) {
+        this.shoppingCart = this.cartSupportingService.getCart();
+        this.isDelivery = val;
+      }
+    })
   }
-
-  onDelivery(){
-    this.isPickUp =false
-    this.isDelivery =true
-  }
+  
 }

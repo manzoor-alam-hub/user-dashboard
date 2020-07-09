@@ -16,12 +16,11 @@ export class ProductItemComponent implements OnInit {
 
 
     public shoppingCart: Cart;
-    public qtyNumber=1;
+
   constructor(private router:Router, private tostre: ToastrService, private productService:ProductService, private cartSupportService: CartSupportingService ) {
-    // this.productData = JSON.parse (localStorage.getItem('product'));
-    this.shoppingCart = new Cart;
-     const checkCart = JSON.parse(localStorage.getItem('cartItem'))
-      checkCart ? this.shoppingCart = checkCart : this.shoppingCart.products = [];
+    // this.shoppingCart = new Cart;
+    //  const checkCart = JSON.parse(localStorage.getItem('cartItem'))
+    //   checkCart ? this.shoppingCart = checkCart : this.shoppingCart.products = [];
    }  
 
 
@@ -43,12 +42,15 @@ export class ProductItemComponent implements OnInit {
     this.productService.getProductDetailById(id).subscribe(
       (res: any)=>{
         productDetail = res;
-        this.cartSupportService.addProductInCart(productDetail);
-        this.router.navigate(['/cart']);
-        
-
+        this.cartSupportService.addProductInCart(productDetail).then((success: any)=>{
+          if(success && success.status === 200) {
+            this.tostre.success(success.message, 'Yehh!!!');
+            this.router.navigate(['/cart']);
+            }
+          }).catch ((err) => {
+            this.tostre.error(err.message, 'Sorry!!!');
+        })
       }
-      
     )
     // obj.Qty = this.qtyNumber;
     // if(obj.instock - obj.Qty >=0){

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductModel, ProductAddModel } from '../product.model';
+import { ProductModel, ProductAddModel, ProductInCart } from '../product.model';
 import { ToastrService } from 'ngx-toastr';
 import { Cart } from 'src/app/cart/cart.model';
 import { ProductService } from '../product.service';
 import { CartService } from 'src/app/cart/cart.service';
+import { CartSupportingService } from 'src/app/cart/cart-supporting.service';
 
 @Component({
   selector: 'app-product-details',
@@ -13,20 +14,20 @@ import { CartService } from 'src/app/cart/cart.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  public productIndex:number; 
+  // public productIndex:number; 
   public obj:ProductAddModel = new ProductAddModel();
   public productData:ProductAddModel[] = [];
   public qtyNumber=1;
   public totalPrice = 0;
   public offerPrice: number;
-  public price:number
+  // public price:number
   public isfavorite:boolean;
   public shoppingCart: Cart;
   constructor(private route:ActivatedRoute, private router:Router, private tostre:ToastrService,
-     private productService: ProductService, private cartService:CartService) { 
-      this.shoppingCart = new Cart;
-      const checkCart = JSON.parse(localStorage.getItem('cartItem'))
-      checkCart ? this.shoppingCart = checkCart : this.shoppingCart.products = [];
+     private productService: ProductService, private cartService:CartService, private cartSupportingService:CartSupportingService) { 
+      // this.shoppingCart = new Cart;
+      // const checkCart = JSON.parse(localStorage.getItem('cartItem'))
+      // checkCart ? this.shoppingCart = checkCart : this.shoppingCart.products = [];
       this.isfavorite = JSON.parse(localStorage.getItem('favorite'))
   }
 
@@ -63,7 +64,22 @@ export class ProductDetailsComponent implements OnInit {
     );
   }
 
-  addToCart(){
+  addToCart(id){
+    let productDetail:ProductAddModel;
+    this.productService.getProductDetailById(id).subscribe(
+      (res:any)=>{
+        productDetail = res;
+        this.cartSupportingService.addProductInCart(productDetail, this.qtyNumber).then((success: any)=>{
+          if(success && success.status === 200) {
+          this.tostre.success(success.message, 'Yehh!!!');
+          this.router.navigate(['/cart']);
+          }
+        }).catch ((err) => {
+          this.tostre.error(err.message, 'Sorry!!!');
+        })
+      }
+    )
+
     // this.obj.Qty= this.qtyNumber;
     // this.obj.totalPrice= this.totalPrice;
     // this.obj.offerPrice = this.offerPrice
@@ -82,24 +98,24 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   calculateAndSaveCart() {  
-    this.shoppingCart.grandTotal = 0;
-    this.shoppingCart.subTotal = 0;
-    this.shoppingCart.products.forEach((item: any) => {
-      let totalPrice = 0;
-      if(item.discount > 1){
-        totalPrice = item.offer *(item.Qty)
+    // this.shoppingCart.grandTotal = 0;
+    // this.shoppingCart.subTotal = 0;
+    // this.shoppingCart.products.forEach((item: any) => {
+    //   let totalPrice = 0;
+    //   if(item.discount > 1){
+    //     totalPrice = item.offer *(item.Qty)
   
-      }else{
-        totalPrice = item.price * (item.Qty);
-      } 
-      this.shoppingCart.grandTotal += totalPrice;
-      this.shoppingCart.subTotal += totalPrice;
-    });
+    //   }else{
+    //     totalPrice = item.price * (item.Qty);
+    //   } 
+    //   this.shoppingCart.grandTotal += totalPrice;
+    //   this.shoppingCart.subTotal += totalPrice;
+    // });
     
-    // this.cartService.addToCart(this.shoppingCart)
-    localStorage.setItem('cartItem', JSON.stringify(this.shoppingCart));
-      this.router.navigate(['/cart']);
-    this.tostre.success('Item added to cart', 'Success')
+    // // this.cartService.addToCart(this.shoppingCart)
+    // localStorage.setItem('cartItem', JSON.stringify(this.shoppingCart));
+    //   this.router.navigate(['/cart']);
+    // this.tostre.success('Item added to cart', 'Success')
   }
 
   byNow(){
@@ -107,12 +123,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   multilyItem(){
-    // if(this.obj.discount > 1){
-    //   this.offerPrice = this.obj.offer *(this.qtyNumber)
+    
+    
+    if(this.obj.discount > 1){
+      this.offerPrice = this.obj.discountPrice *(this.qtyNumber)
 
-    // }else{
-    //   this.totalPrice = this.obj.price * (this.qtyNumber);
-    // }
+    }else{
+      this.totalPrice = this.obj.actualPrice * (this.qtyNumber);
+    }
     
 
   }
