@@ -13,7 +13,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 export class AddProductComponent implements OnInit {
     @ViewChild('navigateToSwal', {static: false}) private navigateToSwal: SwalComponent;
     productForm:any
-    public productData:ProductAddModel[]=[];
+    // public productData:ProductAddModel[]=[];
     public newProduct: ProductAddModel;
     public productPrice:number;
     public discount:number;
@@ -24,8 +24,6 @@ export class AddProductComponent implements OnInit {
 
 
   addProduct(form:NgForm){
-      // this.productForm = form.value;
-      // console.log(this.newProduct);
       const data = {... this.newProduct};
       this.productService.addProduct(data);
       this.newProduct = new ProductAddModel();

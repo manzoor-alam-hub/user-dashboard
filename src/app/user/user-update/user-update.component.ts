@@ -38,5 +38,8 @@ export class UserUpdateComponent implements OnInit {
         
       });
   }
+  isAdminChange() {
+    this.obj.isAdmin ? this.obj.role = 'admin' : this.obj.role = 'user';
+  }
 
 }

@@ -52,33 +52,7 @@ export class ProductItemComponent implements OnInit {
         })
       }
     )
-    // obj.Qty = this.qtyNumber;
-    // if(obj.instock - obj.Qty >=0){
-    //     obj.instock = (obj.instock-obj.Qty);
-    //     localStorage.setItem('product', JSON.stringify(this.productData))
-    //     this.shoppingCart.products.push(obj);
-    //     this. calculateAndSaveCart();
-    // }else {
-    //   this.tostre.error(`only ${obj.instock} item remaining in stock!!!`, 'Sorry')
-    // }
   }
- calculateAndSaveCart() {  
-  //   this.shoppingCart.grandTotal = 0;
-  //   this.shoppingCart.subTotal = 0;
-  //   this.shoppingCart.products.forEach((item: any) => {
-  //     let totalPrice = 0;
-  //     if(item.discount > 1){
-  //       totalPrice = item.offer *(item.Qty)
-  
-  //     }else{
-  //       totalPrice = item.price * (item.Qty);
-  //     } 
-  //     this.shoppingCart.grandTotal += totalPrice;
-  //     this.shoppingCart.subTotal += totalPrice;
-  //   });
-  //   localStorage.setItem('cartItem', JSON.stringify(this.shoppingCart));
-  //   this.router.navigate(['/cart'])
-  //   this.tostre.success('Item added to cart', 'Success')
-  }
+
 
 }

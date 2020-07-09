@@ -27,7 +27,7 @@
                             <img [src]="product.imagePath" class="img-responsive" width="100" height="100">
                         </td>
                         <td>
-                            <a  class="nav-link">{{product?.productName}}</a>
+                            <a routerLink="/product-details/{{product.id}}" class="nav-link">{{product?.productName}}</a>
                             <!-- <span class="badge" [ngClass]="{'badge-success':product?.instock >= 5,
                                 'badge-danger':product?.instock < 5}">In-stock: {{product?.instock}}</span> -->
                         </td>
@@ -37,7 +37,7 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                                 <span class="cart-btn">{{product.qty}}</span>
-                                <button class="btn btn-sm btn-success cart-btn text-white"  (click)="increaseQty(product?.id)">
+                                <button class="btn btn-sm btn-success cart-btn text-white"  (click)="increaseQty(product?.id, product.qty)">
                                     <i class="fa fa-plus"></i>
                                 </button>
                             </div>

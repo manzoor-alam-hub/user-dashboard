@@ -7,8 +7,9 @@ export class RegistrationModel{
     public acceptTerms:boolean;
     public role:string;
     public enable:boolean;
+    public isAdmin:boolean;
     public id:string;
   constructor() {
-    
+    this.isAdmin = false;
   }
 }

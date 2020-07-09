@@ -26,6 +26,7 @@ export class RegistrationPageComponent implements OnInit {
       const password = form.value.password;
       this.signUpForm.role = 'user';
       this.signUpForm.enable = true;
+      this.signUpForm.isAdmin = false;
       this.authService.signUp(email, password).then(
         (res)=>{
           if(res.user.email){
