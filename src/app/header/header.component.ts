@@ -10,6 +10,7 @@ import { AppService } from '../app.service';
 export class HeaderComponent implements OnInit {
 
     public isAuthenticated = false;
+    public isAdmin = false;
   constructor(private router:Router, private appService: AppService) { 
     // const isUserLogin = localStorage.getItem('isLogin');
     // if(!isUserLogin){
@@ -22,6 +23,10 @@ export class HeaderComponent implements OnInit {
             // console.log('appService.isUserLogin', data);
       }
     );
+    this.appService.isAdminUser.subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+      console.log('isAdmin in header', isAdmin);
+    })
    console.log('header ',this.isAuthenticated);
     
   }

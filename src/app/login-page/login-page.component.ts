@@ -21,9 +21,9 @@ export class LoginPageComponent implements OnInit {
      if(isUserLogin){
        this.router.navigate(['/home']);
      }
-    const checkData = JSON.parse (localStorage.getItem('user'));
-    this.userData = checkData;
-      console.log(checkData);
+    // const checkData = JSON.parse (localStorage.getItem('user'));
+    // this.userData = checkData;
+    //   console.log(checkData);
    }
 
    get f(){
@@ -38,13 +38,23 @@ export class LoginPageComponent implements OnInit {
         this.authService.login(email, password).then(
           (res:any)=>{
             console.log(res);
-            this.userData = res;
-            this.router.navigate(['/home']);
+            this.authService.getUserDataByEmail(email).subscribe(
+              (data:any)=>{
+                if(data && data.length > 0)
+                this.userData = data[0];
+
+                console.log(data);
+                this.router.navigate(['/home']);
             localStorage.setItem('isLogin', 'true');
             this.changeLoginState.isLoginSuccess(true);
-            localStorage.setItem('logedInUser', JSON.stringify(res));
+            const isAdmin = (this.userData && this.userData.isAdmin) ? true : false; 
+            this.changeLoginState.isAdmintrue(isAdmin);
+            localStorage.setItem('logedInUser', JSON.stringify(this.userData));
             this.toastr.success(  'Login successful !', 'Success')
             this.signinForm.reset();
+              }
+            )
+            
 
           }
         ).catch((err)=>{
