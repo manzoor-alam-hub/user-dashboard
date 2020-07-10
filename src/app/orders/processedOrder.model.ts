@@ -5,6 +5,7 @@ export class ProcessedOrder{
         grandTotal: number;
         subTotal : number;
         orderId : string;
+        id:string;
         orderItem : Array<ProductInCart> ;
         status : [{
             status: string,
@@ -30,5 +31,6 @@ export class ProcessedOrder{
             username: string
         }
     constructor(){
+        
     }
 }

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cart } from 'src/app/cart/cart.model';
 import { ProductService } from '../product.service';
 import { CartSupportingService } from 'src/app/cart/cart-supporting.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-product-item',
@@ -17,7 +18,7 @@ export class ProductItemComponent implements OnInit {
 
     public shoppingCart: Cart;
 
-  constructor(private router:Router, private tostre: ToastrService, private productService:ProductService, private cartSupportService: CartSupportingService ) {
+  constructor(private router:Router,private appSupportingService:  AppService, private tostre: ToastrService, private productService:ProductService, private cartSupportService: CartSupportingService ) {
     // this.shoppingCart = new Cart;
     //  const checkCart = JSON.parse(localStorage.getItem('cartItem'))
     //   checkCart ? this.shoppingCart = checkCart : this.shoppingCart.products = [];
@@ -44,6 +45,8 @@ export class ProductItemComponent implements OnInit {
         productDetail = res;
         this.cartSupportService.addProductInCart(productDetail).then((success: any)=>{
           if(success && success.status === 200) {
+            const cart = this.cartSupportService.getCart();
+            this.appSupportingService.onProductCountUpdate(cart.products.length);
             this.tostre.success(success.message, 'Yehh!!!');
             this.router.navigate(['/cart']);
             }

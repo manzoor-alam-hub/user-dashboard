@@ -6,19 +6,19 @@
                     <span class="title">Delivery Address</span>
                     <div class="addressDetalis mt-2">
                         <div class=" mb-1">
-                            <div class="userName">{{obj.deliveryInfo.address.firstname}} {{obj.deliveryInfo.address.lastname}}</div>
+                            <div class="userName">{{obj?.deliveryInfo?.address?.firstname}} {{obj?.deliveryInfo?.address?.lastname}}</div>
                         </div>
                         <div class="address">
                             <address>
-                               {{obj.deliveryInfo.address.address}} - {{obj.deliveryInfo.address.pincode}} {{obj.deliveryInfo.address.state}}
+                               {{obj?.deliveryInfo?.address?.address}} - {{obj?.deliveryInfo?.address?.pincode}} {{obj?.deliveryInfo?.address?.state}}
                             </address>
                         </div>
                         <div class="contact">
                            <span class="pnumber">Phone number</span>
-                           <div class="mx-3" style="font-size: 14px;">{{obj.deliveryInfo.address.phone}}</div> 
+                           <div class="mx-3" style="font-size: 14px;">{{obj?.deliveryInfo?.address?.phone}}</div> 
                         </div>
                         <div class="trackedItem">
-                            <span>This order  is also tracked by {{obj.deliveryInfo.address.phone}} </span>
+                            <span>This order  is also tracked by {{obj?.deliveryInfo?.address?.phone}} </span>
                         </div> 
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         <img src="../../../assets/Invoiceimage.png" width="25" height="25">
                         <span class="textinvoice mx-2 ">Download Invoice</span>
                     </div>
-                    <button class="btn btninvoice mx-5 mt-1 " routerLink="/order-print">Download</button>
+                    <button class="btn btninvoice mx-5 mt-1 " (click)="onNavigate(obj.id)">Download</button>
                 </div>
             </div>
         </div>
@@ -53,12 +53,12 @@
                 <div class="col-sm-4">
                     <div class="row" *ngFor="let data of obj.orderItem; let i = index">
                         <div class="col-sm-5">
-                            <a routerLink="/product-details/{{data.productId}}" >
+                            <a routerLink="/product-details/{{data.id}}" >
                                 <img [src]="data.imagePath" class="img-responsive" >
                             </a>
                         </div>
                         <div class="col-sm-7">
-                            <a routerLink="/product-details/{{data.productId}}" class="productDisc">
+                            <a routerLink="/product-details/{{data.id}}" class="productDisc">
                                {{data.productName}}
                             </a>
                             <br>

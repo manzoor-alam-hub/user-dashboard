@@ -162,7 +162,7 @@ export class CartSupportingService{
                             delete product.instock;
                             product.qty = quantity;
                             cart.products.push(product);
-                            this.cartCalculation(cart).then((calculatioDone) => {
+                            this.cartCalculation(cart).then((calculatioDone: any) => {
                                 if(calculatioDone) {
                                     this.updateCart(calculatioDone).then((success: any) => {
                                         if(success && success.status === 200) {

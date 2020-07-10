@@ -6,6 +6,7 @@ import { Cart } from 'src/app/cart/cart.model';
 import { ProductService } from '../product.service';
 import { CartService } from 'src/app/cart/cart.service';
 import { CartSupportingService } from 'src/app/cart/cart-supporting.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-product-details',
@@ -23,7 +24,7 @@ export class ProductDetailsComponent implements OnInit {
   // public price:number
   public isfavorite:boolean;
   public shoppingCart: Cart;
-  constructor(private route:ActivatedRoute, private router:Router, private tostre:ToastrService,
+  constructor(private route:ActivatedRoute, private router:Router,private appSupportingService:  AppService, private tostre:ToastrService,
      private productService: ProductService, private cartService:CartService, private cartSupportingService:CartSupportingService) { 
       // this.shoppingCart = new Cart;
       // const checkCart = JSON.parse(localStorage.getItem('cartItem'))
@@ -71,6 +72,8 @@ export class ProductDetailsComponent implements OnInit {
         productDetail = res;
         this.cartSupportingService.addProductInCart(productDetail, this.qtyNumber).then((success: any)=>{
           if(success && success.status === 200) {
+          const cart = this.cartSupportingService.getCart();
+          this.appSupportingService.onProductCountUpdate(cart.products.length);
           this.tostre.success(success.message, 'Yehh!!!');
           this.router.navigate(['/cart']);
           }
@@ -125,6 +128,8 @@ export class ProductDetailsComponent implements OnInit {
         productDetail = res;
         this.cartSupportingService.addProductInCart(productDetail, this.qtyNumber).then((success: any)=>{
           if(success && success.status === 200) {
+          const cart = this.cartSupportingService.getCart();
+          this.appSupportingService.onProductCountUpdate(cart.products.length);
           this.tostre.success(success.message, 'Yehh!!!');
           this.router.navigate(['/checkout']);
           }

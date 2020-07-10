@@ -26,6 +26,8 @@ import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
 import { SettingPageComponent } from './setting-page/setting-page.component';
 import { OrdersModule } from './orders/orders.module';
+import { OrdersService } from './orders/orders.service';
+import { CartSupportingService } from './cart/cart-supporting.service';
 
 
 @NgModule({
@@ -61,7 +63,7 @@ import { OrdersModule } from './orders/orders.module';
     OrdersModule
     
   ],
-  providers: [AppService],
+  providers: [CartSupportingService, AppService, OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
