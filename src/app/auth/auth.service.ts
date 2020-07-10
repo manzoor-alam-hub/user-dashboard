@@ -46,6 +46,10 @@ export class Authservice{
        return this.afStore.doc(`users/${userId}`).valueChanges();
     }
 
+    getUserDataByEmail(email:string){
+        return this.afStore.collection('users', ref =>ref.where('email', '==', email)).valueChanges()
+    }
+
     updateUserdata(data){
         return this.afStore.collection('users').doc(data.id).set(data)
     }

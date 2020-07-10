@@ -12,7 +12,7 @@
     <a routerLink="/home" *ngIf="isAuthenticated" class="headerstyl" >
         <i class="fa fa-home"> Home </i>
     </a>
-    <a routerLink="/user" *ngIf="isAuthenticated" class="headerstyl">
+    <a routerLink="/user" *ngIf="isAuthenticated && isAdmin" class="headerstyl">
         <i class="fa fa-user"> User </i>
     </a>
     <a style="cursor: pointer;" *ngIf="isAuthenticated" class="headerstyl">

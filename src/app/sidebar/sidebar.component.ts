@@ -8,10 +8,13 @@ import { AppService } from '../app.service';
 })
 export class SidebarComponent implements OnInit {
 
-
+  public isAdmin = false;
 
   constructor(private appService: AppService) { 
-    
+    this.appService.isAdminUser.subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+      
+    });
   }
 
   ngOnInit() {

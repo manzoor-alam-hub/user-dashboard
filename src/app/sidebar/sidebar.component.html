@@ -1,6 +1,6 @@
 <nav class="sidebar">
     <ul>
-        <li><a routerLink="category"> Categories
+        <li *ngIf="isAdmin"><a routerLink="category"> Categories
             </a>
             <!-- <ul>
                 <li><a href="#" >Category-List</a></li>
@@ -9,8 +9,8 @@
                 <li><a href="#">Edit-Category</a></li>
             </ul> -->
         </li>
-        <li><a routerLink="product-item">Products</a></li>
-        <li><a routerLink="orders">Orders</a></li>
+        <li><a [routerLink]="isAdmin == true ? 'product-list': 'product-item'">Products</a></li>
+        <li><a [routerLink]="isAdmin == true ? 'order-list': 'orders'">Orders</a></li>
     </ul>
 </nav>
 
