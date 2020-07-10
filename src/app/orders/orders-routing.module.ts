@@ -11,7 +11,7 @@ const routes:Routes = [
     {path: ':/order-details/:id', component: OrderDetailsComponent},
     {path: 'order-list', component:OrderListComponent},
     {path: 'order-view/:id', component:OrderViewComponent},
-    {path: 'order-print', component:OrderPrintComponent}
+    {path: 'order-print/:id', component:OrderPrintComponent}
 ]
 @NgModule({
     imports: [RouterModule.forChild(routes)],

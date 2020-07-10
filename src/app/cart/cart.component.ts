@@ -7,6 +7,7 @@ import { OrdersModel } from '../orders/orders.model';
 import { CartService } from './cart.service';
 import { CartSupportingService } from './cart-supporting.service';
 import { ProductService } from '../product/product.service';
+import { AppService } from '../app.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CartComponent implements OnInit {
   public isDelivery:boolean;
   public deliverCharges:number;
 
-  constructor(private tostre:ToastrService, private router: Router, private cartSerive:CartService,
+  constructor(private tostre:ToastrService, private appSupportingService:  AppService, private router: Router, private cartSerive:CartService,
      private cartSupportingService: CartSupportingService, private productService:ProductService) {
     this.isDelivery = false;
     this.shoppingCart = this.cartSupportingService.getCart();
@@ -86,6 +87,7 @@ export class CartComponent implements OnInit {
     this.cartSupportingService.removeProductFromCart(productId).then((response: any) => {
       if(response && response.message) {
         this.shoppingCart = this.cartSupportingService.getCart();
+        this.appSupportingService.onProductCountUpdate(this.shoppingCart.products.length);
         this.tostre.success(response.message, 'Cart');
       }
     });

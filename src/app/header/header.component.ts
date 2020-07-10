@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
     public isAuthenticated = false;
     public isAdmin = false;
+    public productsInCart = 0
   constructor(private router:Router, private appService: AppService) { 
     // const isUserLogin = localStorage.getItem('isLogin');
     // if(!isUserLogin){
@@ -26,6 +27,9 @@ export class HeaderComponent implements OnInit {
     this.appService.isAdminUser.subscribe((isAdmin) => {
       this.isAdmin = isAdmin;
       console.log('isAdmin in header', isAdmin);
+    })
+    this.appService.productCount.subscribe((count:number) => {
+      this.productsInCart = count;
     })
    console.log('header ',this.isAuthenticated);
     

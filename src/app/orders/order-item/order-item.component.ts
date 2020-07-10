@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProcessedOrder } from '../processedOrder.model';
+import { OrdersService } from '../orders.service';
 
 @Component({
   selector: 'app-order-item',
@@ -10,15 +11,21 @@ import { ProcessedOrder } from '../processedOrder.model';
 export class OrderItemComponent implements OnInit {
   public orders: ProcessedOrder[]= [] ;
 
-  constructor(private router:Router) {
-    this.orders =  JSON.parse(localStorage.getItem('orders'));
+  constructor(private router:Router, private ordersService:OrdersService) {
+    // this.orders =  JSON.parse(localStorage.getItem('orders'));
    }
 
   ngOnInit() {
+    this.ordersService.getOrdersData().subscribe(
+      (data)=>{
+        this.orders = data;
+      }
+    )
+
   }
 
-  onNvigate(index:number){
-    this.router.navigate([':/order-details', index])
+  onNvigate(id){
+    this.router.navigate([':/order-details', id])
   }
 
 }

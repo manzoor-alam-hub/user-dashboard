@@ -2,7 +2,7 @@
     <div class="container">
         <div class="card invoicecard">
             <div class="card-body">
-                <h3 class="ordrId">Invoice 3939393 </h3>
+                <h3 class="ordrId">Invoice {{obj.orderId}} </h3>
                 <hr>
                 <div class="row">
                    <div class="col-sm-4">
@@ -14,19 +14,19 @@
                                <div class="form-group row">
                                    <div class="col-sm-4"> Name : </div>
                                    <div class="col-sm-8 formdata">
-                                       <strong>Manzoor</strong>
+                                       <strong>{{obj?.userInfo?.username}}</strong>
                                    </div>
                                </div>
                                <div class="form-group row">
                                 <div class="col-sm-4"> Email : </div>
                                 <div class="col-sm-8 formdata">
-                                    <strong>Manzoor@gmail.com</strong>
+                                    <strong>{{obj?.userInfo?.email}}</strong>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-4"> Phone : </div>
                                 <div class="col-sm-8 formdata">
-                                    <strong>8317366930</strong>
+                                    <strong>{{obj?.userInfo?.number}}</strong>
                                 </div>
                             </div>
                            </div>
@@ -41,25 +41,25 @@
                             <div class="form-group row">
                                 <div class="col-sm-4"> Name: </div>
                                 <div class="col-sm-8 formdata">
-                                    <strong> Manzoor Alam </strong>
+                                    <strong> {{obj?.deliveryInfo?.address?.firstname}} {{obj?.deliveryInfo?.address?.lastname}}</strong>
                                 </div>
                             </div>
                             <div class="form-group row">
                              <div class="col-sm-4"> City : </div>
                              <div class="col-sm-8 formdata">
-                                 <strong>Bangalore</strong>
+                                 <strong>{{obj?.deliveryInfo?.address?.city}}</strong>
                              </div>
                          </div>
                          <div class="form-group row">
                              <div class="col-sm-4"> Zip/Post : </div>
                              <div class="col-sm-8 formdata">
-                                 <strong>841226</strong>
+                                 <strong>{{obj?.deliveryInfo?.address?.pincode}}</strong>
                              </div>
                          </div>
                          <div class="form-group row">
                             <div class="col-sm-4"> Phone : </div>
                             <div class="col-sm-8 formdata">
-                                <strong>831366930</strong>
+                                <strong>{{obj?.deliveryInfo?.address?.phone}}</strong>
                             </div>
                         </div>
                         </div>
@@ -68,15 +68,15 @@
                 <div class="col-sm-4 invoice1" style=" border-left: 1px solid #f0f0f0;">
                     <div class="clearfix">
                         <p class="pull-left">INVOICE NO</p>
-                        <p class="pull-right">3939393</p>
+                        <p class="pull-right">{{obj?.orderId}}</p>
                     </div>
-                    <div class="clearfix">
+                    <div class="clearfix" *ngIf="obj.status">
                         <p class="pull-left">Date</p>
-                        <p class="pull-right">jun 26</p>
+                        <p class="pull-right">{{obj?.status[obj?.status?.length-1]?.timeStemp |date}}</p>
                     </div>
-                    <div class="clearfix">
+                    <div class="clearfix" *ngIf="obj.status">
                         <p class="pull-left">Status</p>
-                        <p class="pull-right">Accepted</p>
+                        <p class="pull-right">{{obj?.status[obj?.status?.length-1].status}}</p>
                     </div>
                 </div>
                 </div>
@@ -95,20 +95,20 @@
                         
                     </thead>  
                     <tbody class="text-center">
-                        <tr >
-                            <td>1</td>
-                            <td>pizza</td>
-                            <td>60</td>
+                        <tr *ngFor="let product of obj.orderItem; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{product?.productName}}</td>
+                            <td>{{product?.discountPrice}}</td>
                             <td>--</td>
-                            <td>2</td>
-                            <td><i class="fa fa-rupee">60</i></td>   
+                            <td>{{product?.qty}}</td>
+                            <td><i class="fa fa-rupee">{{product?.totalPrice}}</i></td>   
                         </tr>
                         <tr>
                             <td colspan="4"></td>
                             <td class="text-right">
                                 <strong> Total: </strong>
                             </td>
-                            <td><i class="fa fa-rupee">60</i></td>
+                            <td><i class="fa fa-rupee">{{obj?.subTotal}}</i></td>
                         </tr>
                         <tr>
                             <td colspan="4"></td>
@@ -122,7 +122,7 @@
                             <td class="text-right">
                                 <strong> GrandTotal: </strong>
                             </td>
-                            <td></td>
+                            <td>{{obj?.grandTotal}}</td>
                         </tr>
                     </tbody>
                 </table>

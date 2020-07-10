@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import { OrdersModel } from '../orders/orders.model';
 import { ProcessedOrder } from '../orders/processedOrder.model';
 import { ToastrService } from 'ngx-toastr';
+import { OrdersService } from '../orders/orders.service';
+import { ProductService } from '../product/product.service';
 
 @Component({
   selector: 'app-checkout',
@@ -34,27 +36,28 @@ export class CheckoutComponent implements OnInit {
   public orderdata: OrdersModel;
   public isPickUp: boolean;
   public pickDate= false;
-  public orderObj = new ProcessedOrder();
-  constructor( private config:NgbTimepickerConfig, private router: Router,private tostre:ToastrService) {
+  public orderObj:ProcessedOrder = new ProcessedOrder();
+  constructor( private config:NgbTimepickerConfig, private router: Router,private tostre:ToastrService,
+    private ordersService:OrdersService, private productService:ProductService) {
     this.shoppingCart = new Cart;
     this.orderObj = new ProcessedOrder();
     this.shoppingCart = localStorage.getItem('cartItem') ? JSON.parse(localStorage.getItem('cartItem')) : new Cart();
     this.orderObj.grandTotal = this.shoppingCart.grandTotal;
     this.orderObj.subTotal = this.shoppingCart.subTotal;
     this.orderObj.orderItem = this.shoppingCart.products;
-    // this.orderdata = localStorage.getItem('orderItem')? JSON.parse(localStorage.getItem('orderItem')): new OrdersModel();
     this.getTime();
     config.spinners = false;
-    const checkData = JSON.parse(localStorage.getItem('address'));
-      checkData ? this.addressData = checkData : this.addressData = [];
+    // const checkData = JSON.parse(localStorage.getItem('address'));
+    //   checkData ? this.addressData = checkData : this.addressData = [];
 
-      const checkOrder = JSON.parse(localStorage.getItem('orders'));
-      checkOrder ? this.orderItem = checkOrder: this.orderItem = [];
+      // const checkOrder = JSON.parse(localStorage.getItem('orders'));
+      // checkOrder ? this.orderItem = checkOrder: this.orderItem = [];
    
    }
 
   ngOnInit() {
-   
+  
+
   }
  getTime(){
    this.time = this.today.getHours() + " : " + this.today.getMinutes() ;
@@ -168,7 +171,12 @@ export class CheckoutComponent implements OnInit {
     this.orderObj.userInfo = JSON.parse(localStorage.getItem('logedInUser'));
     const userOrders = this.orderItem;
     userOrders.push(this.orderObj)
-    localStorage.setItem('orders', JSON.stringify (userOrders));
+    this.ordersService.createOrders(this.orderObj).then((res: any) => {
+      console.log('order Service res ', res);
+    }).catch((err) => {
+      console.log('order Service err ', err);
+    })
+    // localStorage.setItem('orders', JSON.stringify (userOrders));
     localStorage.removeItem('cartItem')
     this.router.navigate(['/orders']);
     this.tostre.success('Order Placed', 'Success')
