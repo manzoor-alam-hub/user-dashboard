@@ -45,4 +45,8 @@ export class OrderPrintComponent implements OnInit {
     )
   }
 
+  onPrint(){
+    window.print();
+  }
+
 }

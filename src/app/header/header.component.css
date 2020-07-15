@@ -8,8 +8,8 @@
     padding: .5rem 1rem;
 }
   .headerstyl{
-    /* float: left;
-    display: block; */
+    float: left;
+    /* display: block; */
     color: #f2f2f2;
     text-align: center;
     padding: 10px 25px;
@@ -42,16 +42,22 @@
     }
 
     .applogo{
+      display: block;
+      float: left;
       width: 60px;
       height: 30px;
-      margin-top: 8px;
+      margin-top: 10px;
       filter:brightness(350%) drop-shadow(3px 5px 3px darkblue);
     } 
     .food{
+      float: left;
       font-style: oblique;
       font-size: 20px;
       font-weight: 600;
       font-family: auto;
       color: #d3e6fc;
+      margin-top: 17px;
+
+      
       text-shadow: 3px 5px 3px #0000004d;
     }
